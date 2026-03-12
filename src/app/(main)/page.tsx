@@ -284,9 +284,8 @@ export default function Home() {
             <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" strokeWidth="1" strokeDasharray="4,2" opacity="0.15" />
           </svg>
           <div />
-          <div className="p-5 flex justify-center">
+          <div className="py-5 flex justify-center">
             <div className="w-full max-w-[800px]">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6">EXPLORE</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* 推荐卡片 1 */}
                 <div className="group bg-card border border-dashed border-border rounded-xl p-6 min-h-[180px] hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer flex flex-col">
