@@ -286,31 +286,31 @@ export default function Home() {
           <div />
           <div className="p-5 flex justify-center">
             <div className="w-full max-w-[800px]">
-              <h2 className="text-xl font-bold mb-6">EXPLORE</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-6">EXPLORE</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* 推荐卡片 1 */}
-                <div className="group bg-card border border-border rounded-xl p-5 hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer">
-                  <span className="text-xs text-muted-foreground mb-2 block">跨境电商</span>
-                  <h3 className="font-semibold text-lg mb-2 group-hover:text-foreground/80 transition-colors">亚马逊运营指南</h3>
-                  <p className="text-sm text-muted-foreground line-clamp-2">从零开始学习亚马逊运营，掌握选品、Listing优化、广告投放等核心技能...</p>
+                <div className="group bg-card border border-dashed border-border rounded-xl p-6 min-h-[180px] hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer flex flex-col">
+                  <span className="text-xs text-muted-foreground mb-3 block">跨境电商</span>
+                  <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground/80 transition-colors">亚马逊运营指南</h3>
+                  <p className="text-sm text-muted-foreground line-clamp-3 flex-1">从零开始学习亚马逊运营，掌握选品、Listing优化、广告投放等核心技能...</p>
                 </div>
                 {/* 推荐卡片 2 */}
-                <div className="group bg-card border border-border rounded-xl p-5 hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer">
-                  <span className="text-xs text-muted-foreground mb-2 block">技术分享</span>
-                  <h3 className="font-semibold text-lg mb-2 group-hover:text-foreground/80 transition-colors">Next.js 最佳实践</h3>
-                  <p className="text-sm text-muted-foreground line-clamp-2">深入探讨 Next.js 14 的新特性，App Router、Server Components 实战技巧...</p>
+                <div className="group bg-card border border-dashed border-border rounded-xl p-6 min-h-[180px] hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer flex flex-col">
+                  <span className="text-xs text-muted-foreground mb-3 block">技术分享</span>
+                  <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground/80 transition-colors">Next.js 最佳实践</h3>
+                  <p className="text-sm text-muted-foreground line-clamp-3 flex-1">深入探讨 Next.js 14 的新特性，App Router、Server Components 实战技巧...</p>
                 </div>
                 {/* 推荐卡片 3 */}
-                <div className="group bg-card border border-border rounded-xl p-5 hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer">
-                  <span className="text-xs text-muted-foreground mb-2 block">随笔</span>
-                  <h3 className="font-semibold text-lg mb-2 group-hover:text-foreground/80 transition-colors">2024 年度总结</h3>
-                  <p className="text-sm text-muted-foreground line-clamp-2">回顾过去一年的成长与收获，记录技术学习、工作经历和生活感悟...</p>
+                <div className="group bg-card border border-dashed border-border rounded-xl p-6 min-h-[180px] hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer flex flex-col">
+                  <span className="text-xs text-muted-foreground mb-3 block">随笔</span>
+                  <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground/80 transition-colors">2024 年度总结</h3>
+                  <p className="text-sm text-muted-foreground line-clamp-3 flex-1">回顾过去一年的成长与收获，记录技术学习、工作经历和生活感悟...</p>
                 </div>
                 {/* 推荐卡片 4 */}
-                <div className="group bg-card border border-border rounded-xl p-5 hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer">
-                  <span className="text-xs text-muted-foreground mb-2 block">工具推荐</span>
-                  <h3 className="font-semibold text-lg mb-2 group-hover:text-foreground/80 transition-colors">我的效率工具箱</h3>
-                  <p className="text-sm text-muted-foreground line-clamp-2">分享日常使用的开发工具、效率软件和工作流程，提升生产力的秘诀...</p>
+                <div className="group bg-card border border-dashed border-border rounded-xl p-6 min-h-[180px] hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer flex flex-col">
+                  <span className="text-xs text-muted-foreground mb-3 block">工具推荐</span>
+                  <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground/80 transition-colors">我的效率工具箱</h3>
+                  <p className="text-sm text-muted-foreground line-clamp-3 flex-1">分享日常使用的开发工具、效率软件和工作流程，提升生产力的秘诀...</p>
                 </div>
               </div>
             </div>
