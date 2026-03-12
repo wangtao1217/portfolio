@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useScroll } from '@/hooks/use-scroll';
 import { ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface FloatingHeaderProps {
   showBack?: boolean;
@@ -32,13 +33,16 @@ export function FloatingHeader({
           <div className="flex h-14 items-center justify-between max-w-[1200px] mx-auto px-3 sm:px-5 w-full">
             <div className="flex items-center gap-4">
               {showBack && (
-                <Link 
-                  href={backHref}
-                  className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  asChild
+                  className="relative w-9 h-9 rounded-full overflow-hidden hover:bg-accent/80 dark:hover:bg-accent/60 transition-colors flex-shrink-0"
                 >
-                  <ArrowLeft className="h-4 w-4" />
-                  {backLabel}
-                </Link>
+                  <Link href={backHref}>
+                    <ArrowLeft className="h-4 w-4" />
+                  </Link>
+                </Button>
               )}
               <Link href="/" className="font-bold text-lg hover:opacity-70 transition-opacity">
                 深澜

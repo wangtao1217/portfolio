@@ -43,15 +43,41 @@ export function getAllPosts(): Post[] {
       // 解析 frontmatter
       const matterResult = matter(fileContents);
 
-      // 提取年份
-      const date = matterResult.data.date || new Date().toISOString().split('T')[0];
+      // 从内容中提取标题（第一个 # 标题），去掉所有 emoji
+      const titleMatch = matterResult.content.match(/^#\s+(.+)$/m);
+      const extractedTitle = titleMatch 
+        ? titleMatch[1].trim().replace(/[^\u0000-\u007F\u4E00-\u9FA5]/gu, '').trim() 
+        : 'Untitled';
+
+      // 提取年份 - 处理 date 可能是 Date 对象或字符串的情况
+      let date = matterResult.data.date;
+      if (date instanceof Date) {
+        date = date.toISOString().split('T')[0];
+      } else if (typeof date !== 'string' || !date) {
+        date = new Date().toISOString().split('T')[0];
+      }
       const year = parseInt(date.split('-')[0], 10);
+
+      // 生成摘要：优先使用 description，其次是 excerpt，最后从内容提取
+      const excerpt = matterResult.data.description || 
+        matterResult.data.excerpt || 
+        matterResult.content
+          .replace(/^#\s+.+$/gm, '') // 去掉标题
+          .replace(/[\n\r]+/g, ' ') // 换行变空格
+          .replace(/\s+/g, ' ') // 多个空格合并
+          .trim()
+          .slice(0, 80) + '...';
+
+      // 处理标题：优先使用 frontmatter 的 title，其次从内容提取，都去掉所有 emoji
+      const title = (matterResult.data.title || extractedTitle)
+        .replace(/[^\u0000-\u007F\u4E00-\u9FA5]/gu, '')
+        .trim();
 
       return {
         id,
         slug,
-        title: matterResult.data.title || 'Untitled',
-        excerpt: matterResult.data.excerpt || '',
+        title,
+        excerpt,
         date,
         year,
         tags: matterResult.data.tags || [],
@@ -82,22 +108,49 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const matterResult = matter(fileContents);
 
+    // 从内容中提取标题（第一个 # 标题）
+    const titleMatch = matterResult.content.match(/^#\s+(.+)$/m);
+    const extractedTitle = titleMatch ? titleMatch[1].trim() : 'Untitled';
+
     // 转换 Markdown 为 HTML
     const processedContent = await remark()
       .use(remarkGfm) // 支持 GitHub Flavored Markdown
       .use(html, { sanitize: false }) // 允许 HTML 标签
       .process(matterResult.content);
     
-    const contentHtml = processedContent.toString();
+    let contentHtml = processedContent.toString();
 
-    const date = matterResult.data.date || new Date().toISOString().split('T')[0];
+    // 给表格添加包裹层以实现横向滚动
+    contentHtml = contentHtml.replace(
+      /<table>/g,
+      '<div class="table-wrapper"><table>'
+    );
+    contentHtml = contentHtml.replace(
+      /<\/table>/g,
+      '</table></div>'
+    );
+
+    // 处理 date 可能是 Date 对象或字符串的情况
+    let date = matterResult.data.date;
+    if (date instanceof Date) {
+      date = date.toISOString().split('T')[0];
+    } else if (typeof date !== 'string' || !date) {
+      date = new Date().toISOString().split('T')[0];
+    }
     const year = parseInt(date.split('-')[0], 10);
+
+    // 生成摘要
+    const excerpt = matterResult.data.excerpt || matterResult.content
+      .replace(/^#\s+.+$/gm, '')
+      .replace(/[\n\r]+/g, ' ')
+      .trim()
+      .slice(0, 200) + '...';
 
     return {
       id: slug,
       slug,
-      title: matterResult.data.title || 'Untitled',
-      excerpt: matterResult.data.excerpt || '',
+      title: matterResult.data.title || extractedTitle,
+      excerpt,
       date,
       year,
       tags: matterResult.data.tags || [],

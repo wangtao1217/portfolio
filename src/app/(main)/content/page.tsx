@@ -1,32 +1,35 @@
 import { getAllPosts } from '@/lib/posts';
-import { Calendar } from 'lucide-react';
 import Link from 'next/link';
-import { GridBackground } from '@/components/ui/grid-background';
 
-// 文章卡片组件
+// 文章卡片组件 - 使用 explore 卡片样式
 function ArticleCard({ post }: { post: { slug: string; title: string; excerpt: string; date: string; tags: string[] } }) {
+  // 从 tags 中提取分类（第一个 type/ 或 topic/ 标签）
+  const category = post.tags.find(tag => tag.startsWith('type/') || tag.startsWith('topic/'))?.split('/')[1] || '笔记';
+
   return (
     <Link
       href={`/content/${post.slug}`}
-      className="group block bg-card border border-border rounded-xl p-4 hover:border-foreground/30 transition-all duration-300 hover:shadow-md break-inside-avoid mb-2"
+      className="group bg-card border border-transparent rounded-xl p-6 min-h-[180px] hover:border-foreground/10 transition-all duration-300 cursor-pointer flex flex-col break-inside-avoid mb-4"
     >
-      <h3 className="font-semibold text-lg leading-snug mb-2 line-clamp-3 group-hover:text-foreground/80 transition-colors">
+      {/* 顶部：时间和标签 */}
+      <div className="flex items-center gap-2 mb-3">
+        <span className="text-xs text-muted-foreground/60">{post.date}</span>
+        {post.tags.slice(0, 2).map((tag) => (
+          <span key={tag} className="text-xs text-muted-foreground/50">
+            #{tag.split('/').pop()}
+          </span>
+        ))}
+      </div>
+
+      {/* 标题 */}
+      <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground/80 transition-colors line-clamp-2">
         {post.title}
       </h3>
-      <p className="text-sm text-muted-foreground line-clamp-2 mb-2">
+
+      {/* 摘要 - 一行半 */}
+      <p className="text-sm text-muted-foreground line-clamp-[1.5] flex-1">
         {post.excerpt}
       </p>
-      <div className="flex items-center justify-between text-xs text-muted-foreground pt-2 border-t border-border/50">
-        <div className="flex items-center gap-1">
-          <Calendar className="h-3 w-3" />
-          <span>{post.date}</span>
-        </div>
-        {post.tags.length > 0 && (
-          <span className="px-2 py-0.5 bg-muted rounded text-[10px]">
-            {post.tags[0]}
-          </span>
-        )}
-      </div>
     </Link>
   );
 }
@@ -34,10 +37,9 @@ function ArticleCard({ post }: { post: { slug: string; title: string; excerpt: s
 // 筛选标签
 const filterTags = [
   { id: 'all', label: '全部' },
-  { id: 'tech', label: '技术' },
-  { id: 'ecommerce', label: '电商' },
-  { id: 'essay', label: '随笔' },
-  { id: 'tools', label: '工具' },
+  { id: 'think', label: '思考' },
+  { id: 'knowledge', label: '知识' },
+  { id: 'story', label: '故事随笔' },
 ];
 
 export default function ContentPage() {
@@ -45,22 +47,28 @@ export default function ContentPage() {
 
   return (
     <>
-      {/* 背景 */}
-      <GridBackground />
-      
       <main className="flex-1 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] max-w-[1400px] mx-auto">
-          {/* 左侧筛选导航 - 宽屏显示在左侧，窄屏显示在上边 */}
-          <aside className="p-3 sm:p-5">
-            {/* 窄屏：横向排列 */}
-            <div className="flex lg:hidden gap-2 overflow-x-auto pb-2 scrollbar-hide">
+        {/* 使用主页一样的栅格布局 grid-cols-[1fr_8fr_1fr] */}
+        <div className="grid grid-cols-1 sm:grid-cols-[1fr_8fr_1fr]">
+          <div className="hidden sm:block" />
+          
+          <div className="p-3 sm:p-5 max-w-[800px] mx-auto w-full">
+            {/* 页面标题 */}
+            <div className="mb-4">
+              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight font-sans">
+                Content.
+              </h1>
+            </div>
+
+            {/* 筛选导航 - 极简风格 */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-4 scrollbar-hide">
               {filterTags.map((tag) => (
                 <button
                   key={tag.id}
-                  className={`px-3 py-1.5 text-sm rounded-full border transition-all whitespace-nowrap ${
+                  className={`px-2 py-[2px] text-sm transition-all whitespace-nowrap ${
                     tag.id === 'all'
-                      ? 'bg-foreground text-background border-foreground'
-                      : 'bg-card border-border hover:border-foreground/30'
+                      ? 'border-b border-foreground'
+                      : 'text-muted-foreground/60 hover:text-muted-foreground'
                   }`}
                 >
                   {tag.label}
@@ -68,37 +76,15 @@ export default function ContentPage() {
               ))}
             </div>
             
-            {/* 宽屏：纵向排列 */}
-            <div className="hidden lg:block sticky top-20">
-              <h3 className="font-semibold mb-4 text-sm text-muted-foreground uppercase tracking-wider">
-                分类筛选
-              </h3>
-              <div className="space-y-1">
-                {filterTags.map((tag) => (
-                  <button
-                    key={tag.id}
-                    className={`w-full text-left px-3 py-2 text-sm rounded-lg transition-all ${
-                      tag.id === 'all'
-                        ? 'bg-foreground text-background'
-                        : 'hover:bg-muted'
-                    }`}
-                  >
-                    {tag.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </aside>
-
-          {/* 文章列表 */}
-          <div className="p-3 sm:p-5">
-            {/* 文章列表 - 瀑布流 */}
-            <div className="columns-2 sm:columns-3 lg:columns-4 gap-2">
+            {/* 文章列表 - 手机端一列，其他瀑布流 */}
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-2">
               {posts.map((post) => (
                 <ArticleCard key={post.slug} post={post} />
               ))}
             </div>
           </div>
+          
+          <div className="hidden sm:block" />
         </div>
       </main>
     </>
