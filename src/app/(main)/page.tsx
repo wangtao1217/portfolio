@@ -143,7 +143,7 @@ function NavCard({ card, index, total }: { card: typeof navCards[0]; index: numb
       href={card.href}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative flex items-center justify-between py-5 px-4 transition-all duration-300"
+      className="group relative flex items-center justify-between py-5 transition-all duration-300"
     >
       {/* 底部虚线 - 手机竖列时贯穿整个容器宽度，除了最后一个 */}
       {!isLast && (
