@@ -27,26 +27,22 @@ export default function MainLayout({
             : 'bg-transparent border-b border-transparent'
         }`}
       >
-        <div className="grid grid-cols-1 sm:grid-cols-[1fr_8fr_1fr] w-full">
-          <div className="hidden sm:block" />
-          <div className="flex h-14 items-center justify-between max-w-[1200px] mx-auto px-3 sm:px-5 w-full">
-            <div className="flex items-center gap-4">
-              {isArticlePage && (
-                <Link 
-                  href="/content"
-                  className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  返回
-                </Link>
-              )}
-              <Link href="/" className="font-bold text-lg hover:opacity-70 transition-opacity">
-                深澜
+        <div className="flex h-14 items-center justify-between max-w-[1200px] mx-auto px-3 sm:px-5 w-full">
+          <div className="flex items-center gap-4">
+            {isArticlePage && (
+              <Link 
+                href="/content"
+                className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                返回
               </Link>
-            </div>
-            <ThemeToggle />
+            )}
+            <Link href="/" className="font-bold text-lg hover:opacity-70 transition-opacity">
+              深澜
+            </Link>
           </div>
-          <div className="hidden sm:block" />
+          <ThemeToggle />
         </div>
       </header>
 

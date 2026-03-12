@@ -273,10 +273,48 @@ export default function Home() {
           <div />
         </div>
 
-        {/* 空白区域 */}
-        <div className="grid grid-cols-[1fr_8fr_1fr]">
+        {/* 推荐内容区域 */}
+        <div className="grid grid-cols-[1fr_8fr_1fr] relative">
+          {/* 上边虚线 */}
+          <svg className="absolute top-0 left-0 right-0 h-px w-full pointer-events-none" preserveAspectRatio="none">
+            <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" strokeWidth="1" strokeDasharray="4,2" opacity="0.15" />
+          </svg>
+          {/* 下边虚线 */}
+          <svg className="absolute bottom-0 left-0 right-0 h-px w-full pointer-events-none" preserveAspectRatio="none">
+            <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" strokeWidth="1" strokeDasharray="4,2" opacity="0.15" />
+          </svg>
           <div />
-          <div className="p-5" />
+          <div className="p-5 flex justify-center">
+            <div className="w-full max-w-[800px]">
+              <h2 className="text-xl font-bold mb-6">推荐内容</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* 推荐卡片 1 */}
+                <div className="group bg-card border border-border rounded-xl p-5 hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer">
+                  <span className="text-xs text-muted-foreground mb-2 block">跨境电商</span>
+                  <h3 className="font-semibold text-lg mb-2 group-hover:text-foreground/80 transition-colors">亚马逊运营指南</h3>
+                  <p className="text-sm text-muted-foreground line-clamp-2">从零开始学习亚马逊运营，掌握选品、Listing优化、广告投放等核心技能...</p>
+                </div>
+                {/* 推荐卡片 2 */}
+                <div className="group bg-card border border-border rounded-xl p-5 hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer">
+                  <span className="text-xs text-muted-foreground mb-2 block">技术分享</span>
+                  <h3 className="font-semibold text-lg mb-2 group-hover:text-foreground/80 transition-colors">Next.js 最佳实践</h3>
+                  <p className="text-sm text-muted-foreground line-clamp-2">深入探讨 Next.js 14 的新特性，App Router、Server Components 实战技巧...</p>
+                </div>
+                {/* 推荐卡片 3 */}
+                <div className="group bg-card border border-border rounded-xl p-5 hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer">
+                  <span className="text-xs text-muted-foreground mb-2 block">随笔</span>
+                  <h3 className="font-semibold text-lg mb-2 group-hover:text-foreground/80 transition-colors">2024 年度总结</h3>
+                  <p className="text-sm text-muted-foreground line-clamp-2">回顾过去一年的成长与收获，记录技术学习、工作经历和生活感悟...</p>
+                </div>
+                {/* 推荐卡片 4 */}
+                <div className="group bg-card border border-border rounded-xl p-5 hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer">
+                  <span className="text-xs text-muted-foreground mb-2 block">工具推荐</span>
+                  <h3 className="font-semibold text-lg mb-2 group-hover:text-foreground/80 transition-colors">我的效率工具箱</h3>
+                  <p className="text-sm text-muted-foreground line-clamp-2">分享日常使用的开发工具、效率软件和工作流程，提升生产力的秘诀...</p>
+                </div>
+              </div>
+            </div>
+          </div>
           <div />
         </div>
       </main>
