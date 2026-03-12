@@ -1,0 +1,290 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-lime-400: #a3e635;
+  --color-lime-500: #84cc16;
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 96%;
+    --foreground: 240 10% 4%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 4%;
+    --primary: 240 6% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 6% 10%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    --accent: 240 5% 96%;
+    --accent-foreground: 240 6% 10%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 240 6% 10%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 6% 10%;
+    --foreground: 0 0% 98%;
+    --card: 240 6% 12%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 6% 12%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 6% 10%;
+    --secondary: 240 4% 16%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 240 4% 16%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 4% 16%;
+    --input: 240 4% 16%;
+    --ring: 240 5% 84%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* 平滑滚动 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 选择文本样式 - 荧光绿 */
+::selection {
+  background-color: #84cc16;
+  color: #000;
+}
+
+/* 自定义滚动条 - 1px 宽黑色，无背景无边距无圆角 */
+::-webkit-scrollbar {
+  width: 1px;
+  height: 1px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--foreground));
+  border-radius: 0;
+  border: none;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--foreground));
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox 滚动条 - 1px 宽黑色，无背景 */
+* {
+  scrollbar-width: 1px;
+  scrollbar-color: hsl(var(--foreground)) transparent;
+}
+
+/* 隐藏滚动条 */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* 无障碍支持 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Markdown 文章样式 */
+.prose {
+  color: hsl(var(--foreground));
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose h1 {
+  font-size: 1.75rem;
+  margin-top: 0;
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+  border-bottom: 1px solid hsl(var(--border));
+  padding-bottom: 0.3em;
+}
+
+.prose h3 {
+  font-size: 1.25rem;
+}
+
+.prose p {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+  line-height: 1.75;
+}
+
+.prose ul,
+.prose ol {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+  padding-left: 1.5em;
+}
+
+.prose ul {
+  list-style-type: disc;
+}
+
+.prose ol {
+  list-style-type: decimal;
+}
+
+.prose li {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+.prose a {
+  color: hsl(var(--foreground));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose a:hover {
+  opacity: 0.7;
+}
+
+.prose code {
+  background-color: hsl(var(--muted));
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+.prose pre {
+  background-color: hsl(var(--muted));
+  padding: 1em;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.prose pre code {
+  background-color: transparent;
+  padding: 0;
+  font-size: 0.875em;
+}
+
+.prose blockquote {
+  border-left: 3px solid hsl(var(--border));
+  padding-left: 1em;
+  margin-left: 0;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  color: hsl(var(--muted-foreground));
+  font-style: italic;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.prose th,
+.prose td {
+  border: 1px solid hsl(var(--border));
+  padding: 0.5em 0.75em;
+  text-align: left;
+}
+
+.prose th {
+  background-color: hsl(var(--muted));
+  font-weight: 600;
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid hsl(var(--border));
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.prose strong {
+  font-weight: 600;
+}
+
+.prose em {
+  font-style: italic;
+}
