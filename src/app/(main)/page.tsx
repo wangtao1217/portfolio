@@ -281,21 +281,6 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-foreground text-background py-6 relative z-10">
-        <Container>
-          <HStack justify="between" align="center">
-            <p className="text-xs text-background/50">
-              © 2026 深澜
-            </p>
-            <HStack gap={2}>
-              <SocialIcon href="https://github.com" icon={Github} label="GitHub" />
-              <SocialIcon href="https://twitter.com" icon={Twitter} label="Twitter" />
-              <SocialIcon href="https://linkedin.com" icon={Linkedin} label="LinkedIn" />
-            </HStack>
-          </HStack>
-        </Container>
-      </footer>
     </>
   );
 }

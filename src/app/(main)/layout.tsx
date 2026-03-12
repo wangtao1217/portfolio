@@ -11,7 +11,7 @@ export default function MainLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const isScrolled = useScroll(100);
+  const isScrolled = useScroll(50);
   const pathname = usePathname();
 
   // 判断是否在文章详情页
