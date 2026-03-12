@@ -286,7 +286,7 @@ export default function Home() {
           <div />
           <div className="p-5 flex justify-center">
             <div className="w-full max-w-[800px]">
-              <h2 className="text-xl font-bold mb-6">推荐内容</h2>
+              <h2 className="text-xl font-bold mb-6">EXPLORE</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* 推荐卡片 1 */}
                 <div className="group bg-card border border-border rounded-xl p-5 hover:border-foreground/30 transition-all duration-300 hover:shadow-md cursor-pointer">
