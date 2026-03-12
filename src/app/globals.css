@@ -94,38 +94,14 @@ html {
   color: #000;
 }
 
-/* 自定义滚动条 - 1px 宽黑色，无背景无边距无圆角 */
+/* 隐藏全局滚动条 */
 ::-webkit-scrollbar {
-  width: 1px;
-  height: 1px;
-  background: transparent;
+  display: none;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
-  margin: 0;
-  padding: 0;
-  border: none;
-}
-
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--foreground));
-  border-radius: 0;
-  border: none;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--foreground));
-}
-
-::-webkit-scrollbar-corner {
-  background: transparent;
-}
-
-/* Firefox 滚动条 - 1px 宽黑色，无背景 */
 * {
-  scrollbar-width: 1px;
-  scrollbar-color: hsl(var(--foreground)) transparent;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* 隐藏滚动条 */
