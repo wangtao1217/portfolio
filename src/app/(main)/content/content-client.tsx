@@ -29,10 +29,10 @@ function ArticleCard({ post }: { post: Post }) {
       href={`/content/${post.slug}`}
       className="group bg-card border border-border/20 rounded-lg p-2.5 hover:border-foreground/10 transition-all duration-300 cursor-pointer flex flex-col h-full"
     >
-      {/* 标题容器 - 高度自适应，缩小行距 */}
-      <div className="mb-3">
+      {/* 标题容器 - 高度自适应内容 */}
+      <div className="mb-5">
         <h3 
-          className="font-normal text-xl leading-snug group-hover:text-foreground/80 transition-colors line-clamp-2"
+          className="font-normal text-xl leading-relaxed group-hover:text-foreground/80 transition-colors line-clamp-2"
           style={{ fontFamily: "'Source Han Sans SC', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif" }}
         >
           {post.title}
@@ -63,36 +63,6 @@ interface ContentClientProps {
 
 export function ContentClient({ posts }: ContentClientProps) {
   const [activeTag, setActiveTag] = useState('all');
-  const [isNavSticky, setIsNavSticky] = useState(false);
-  const navRef = useRef<HTMLDivElement>(null);
-  const navWrapperRef = useRef<HTMLDivElement>(null);
-  const navHeightRef = useRef(0);
-
-  useEffect(() => {
-    // 记录导航原始高度
-    if (navRef.current) {
-      navHeightRef.current = navRef.current.offsetHeight;
-    }
-
-    const handleScroll = () => {
-      if (!navRef.current || !navWrapperRef.current) return;
-      
-      const wrapperRect = navWrapperRef.current.getBoundingClientRect();
-      const headerHeight = 56; // 顶部导航高度
-      
-      // 当包装器的顶部进入顶部导航下方时，导航应该固定
-      // 当包装器的顶部离开顶部导航下方时，导航应该恢复
-      if (wrapperRect.top <= headerHeight) {
-        setIsNavSticky(true);
-      } else {
-        setIsNavSticky(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // 初始检查
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
     <>
@@ -109,17 +79,9 @@ export function ContentClient({ posts }: ContentClientProps) {
               </h1>
             </div>
 
-            {/* 筛选导航包装器 - 无感固定 */}
-            <div ref={navWrapperRef} className="relative" style={{ minHeight: isNavSticky ? navHeightRef.current : undefined }}>
-              {/* 筛选导航 - 支持左右滑动，可固定 */}
-              <div 
-                ref={navRef}
-                className={`flex items-center gap-1 overflow-x-auto pb-3 mb-6 scrollbar-hide -mx-3 px-3 bg-background transition-all duration-200 ${
-                  isNavSticky 
-                    ? 'fixed left-0 right-0 top-14 z-40 border-b border-border/30 py-3 mb-0' 
-                    : 'relative'
-                }`}
-              >
+            {/* 筛选导航 - 使用sticky定位实现无感固定 */}
+            <div className="sticky top-14 z-40 bg-background border-b border-border/30 -mx-3 px-3 mb-6">
+              <div className="flex items-center gap-1 overflow-x-auto py-3 scrollbar-hide">
                 {filterTags.map((tag) => (
                   <button
                     key={tag.id}
