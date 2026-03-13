@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 interface Post {
@@ -29,11 +29,11 @@ function ArticleCard({ post }: { post: Post }) {
       href={`/content/${post.slug}`}
       className="group bg-card border border-border/20 rounded-lg p-2.5 hover:border-foreground/10 transition-all duration-300 cursor-pointer flex flex-col h-full"
     >
-      {/* 标题容器 - 最小高度约两行 */}
-      <div className="min-h-[3.5rem] mb-1">
+      {/* 标题容器 - 高度自适应，增加行距 */}
+      <div className="mb-3">
         <h3 
-          className="font-bold text-xl leading-tight group-hover:text-foreground/80 transition-colors line-clamp-2"
-          style={{ fontFamily: "'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'Noto Sans SC', sans-serif" }}
+          className="font-normal text-xl leading-relaxed group-hover:text-foreground/80 transition-colors line-clamp-2"
+          style={{ fontFamily: "'Source Han Sans SC', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif" }}
         >
           {post.title}
         </h3>
@@ -63,6 +63,28 @@ interface ContentClientProps {
 
 export function ContentClient({ posts }: ContentClientProps) {
   const [activeTag, setActiveTag] = useState('all');
+  const [isNavSticky, setIsNavSticky] = useState(false);
+  const navRef = useRef<HTMLDivElement>(null);
+  const navWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!navRef.current || !navWrapperRef.current) return;
+      
+      const navRect = navRef.current.getBoundingClientRect();
+      const headerHeight = 56; // 顶部导航高度
+      
+      // 当导航上边界接触到顶部导航下边界时固定
+      if (navRect.top <= headerHeight) {
+        setIsNavSticky(true);
+      } else {
+        setIsNavSticky(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
@@ -79,25 +101,39 @@ export function ContentClient({ posts }: ContentClientProps) {
               </h1>
             </div>
 
-            {/* 筛选导航 - 支持左右滑动 */}
-            <div className="flex items-center gap-1 overflow-x-auto pb-3 mb-6 scrollbar-hide -mx-3 px-3">
-              {filterTags.map((tag) => (
-                <button
-                  key={tag.id}
-                  onClick={() => setActiveTag(tag.id)}
-                  className="relative px-3 py-1.5 text-sm whitespace-nowrap transition-colors duration-200"
-                >
-                  <span className={activeTag === tag.id ? 'text-foreground' : 'text-muted-foreground/60 hover:text-muted-foreground'}>
-                    {tag.label}
-                  </span>
-                  {/* 下划线动画 */}
-                  <span
-                    className={`absolute bottom-0 left-3 right-3 h-[1px] bg-foreground transition-all duration-300 ${
-                      activeTag === tag.id ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
-                    }`}
-                  />
-                </button>
-              ))}
+            {/* 筛选导航包装器 */}
+            <div ref={navWrapperRef} className="relative">
+              {/* 筛选导航 - 支持左右滑动，可固定 */}
+              <div 
+                ref={navRef}
+                className={`flex items-center gap-1 overflow-x-auto pb-3 mb-6 scrollbar-hide -mx-3 px-3 transition-all duration-300 ${
+                  isNavSticky 
+                    ? 'fixed left-0 right-0 top-14 z-40 bg-background/95 backdrop-blur-sm border-b border-border/20 py-2 mb-0' 
+                    : ''
+                }`}
+                style={isNavSticky ? { marginLeft: '0', marginRight: '0', paddingLeft: '1rem', paddingRight: '1rem' } : {}}
+              >
+                {filterTags.map((tag) => (
+                  <button
+                    key={tag.id}
+                    onClick={() => setActiveTag(tag.id)}
+                    className="relative px-3 py-1.5 text-sm whitespace-nowrap transition-colors duration-200"
+                  >
+                    <span className={activeTag === tag.id ? 'text-foreground' : 'text-muted-foreground/60 hover:text-muted-foreground'}>
+                      {tag.label}
+                    </span>
+                    {/* 下划线动画 */}
+                    <span
+                      className={`absolute bottom-0 left-3 right-3 h-[1px] bg-foreground transition-all duration-300 ${
+                        activeTag === tag.id ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
+                      }`}
+                    />
+                  </button>
+                ))}
+              </div>
+              
+              {/* 占位符，防止固定时内容跳动 */}
+              {isNavSticky && <div className="h-12" />}
             </div>
             
             {/* 文章列表 - 间距减小 */}
