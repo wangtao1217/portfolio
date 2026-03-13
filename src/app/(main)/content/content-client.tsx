@@ -27,24 +27,22 @@ function ArticleCard({ post }: { post: Post }) {
   return (
     <Link
       href={`/content/${post.slug}`}
-      className="group bg-card border border-border/20 rounded-lg p-2.5 hover:border-foreground/10 transition-all duration-300 cursor-pointer flex flex-col h-full"
+      className="group bg-card border border-border/20 rounded-lg p-2.5 hover:border-foreground/10 transition-all duration-300 cursor-pointer block"
     >
-      {/* 标题容器 - 高度自适应内容，与概述间距40px */}
-      <div className="mb-[40px]">
+      {/* 标题容器 - 高度自适应内容，与概述间距28px */}
+      <div className="mb-[28px]">
         <h3 
           className="font-normal text-xl leading-relaxed group-hover:text-foreground/80 transition-colors line-clamp-2"
-          style={{ fontFamily: "'Source Han Sans SC', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif" }}
+          style={{ fontFamily: "'Noto Serif SC', 'Source Han Serif SC', 'SimSun', 'STSong', serif" }}
         >
           {post.title}
         </h3>
       </div>
 
-      {/* 摘要 - 强制两行，左下角对齐 */}
-      <div className="flex-1 flex items-end">
-        <p className="text-sm text-muted-foreground line-clamp-2 w-full">
-          {cleanedExcerpt}
-        </p>
-      </div>
+      {/* 摘要 */}
+      <p className="text-sm text-muted-foreground line-clamp-2 w-full">
+        {cleanedExcerpt}
+      </p>
     </Link>
   );
 }
@@ -80,7 +78,7 @@ export function ContentClient({ posts }: ContentClientProps) {
             </div>
 
             {/* 筛选导航 - 使用sticky定位实现无感固定 */}
-            <div className="sticky top-14 z-40 bg-background border-b border-border/30 -mx-3 px-3 mb-6">
+            <div className="sticky top-14 z-40 bg-background -mx-3 px-3 mb-6">
               <div className="flex items-center gap-1 overflow-x-auto py-3 scrollbar-hide">
                 {filterTags.map((tag) => (
                   <button

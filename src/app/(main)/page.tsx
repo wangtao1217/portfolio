@@ -7,8 +7,7 @@ import { GridBackground } from '@/components/ui/grid-background';
 
 // Terminal 风格的命令行历史 - 3句一个循环
 const terminalLines = [
-  { type: 'prompt', content: 'whoami' },
-  { type: 'output', content: '@深澜' },
+  { type: 'prompt', content: 'whoami', inlineOutput: '@深澜' },
   { type: 'output', content: 'Cross-border E-commerce operator / Tech explorer / Lifelong learner' },
   { type: 'prompt', content: 'cat motto.txt' },
   { type: 'output', content: '' }, // 动态填充
@@ -156,11 +155,10 @@ function TerminalTypewriter({ typingSpeed = 70, linePause = 900 }: {
     if (line.type === 'prompt') {
       return line.content;
     }
-    // output 行：前两个是固定的 whoami 输出，后面是 motto
-    if (index === 1) return '@深澜';
-    if (index === 2) return 'Cross-border E-commerce operator / Tech explorer / Lifelong learner';
+    // output 行：第一个是英文介绍，后面是 motto
+    if (index === 1) return 'Cross-border E-commerce operator / Tech explorer / Lifelong learner';
     // motto 行 - 只显示句子，不显示@作者
-    const mottoIndex = (mottoOffset + Math.floor((index - 3) / 2)) % mottos.length;
+    const mottoIndex = (mottoOffset + Math.floor((index - 2) / 2)) % mottos.length;
     return mottos[mottoIndex].text;
   };
 
@@ -209,24 +207,32 @@ function TerminalTypewriter({ typingSpeed = 70, linePause = 900 }: {
       ref={scrollRef}
       className="font-mono text-sm sm:text-base h-full overflow-y-auto no-scrollbar"
     >
-      {displayLines.map((line, index) => (
-        <div 
-          key={index} 
-          className={`${
-            line.type === 'prompt' 
-              ? 'text-muted-foreground/60' 
-              : 'text-foreground'
-          }`}
-        >
-          {line.type === 'prompt' && (
-            <span className="text-muted-foreground/40 mr-2">$</span>
-          )}
-          {line.content}
-          {index === displayLines.length - 1 && showCursor && (
-            <span className="inline-block w-[8px] h-[1.2em] bg-foreground ml-0.5" />
-          )}
-        </div>
-      ))}
+      {displayLines.map((line, index) => {
+        const originalLine = terminalLines[index];
+        const hasInlineOutput = originalLine?.type === 'prompt' && originalLine?.inlineOutput;
+        
+        return (
+          <div 
+            key={index} 
+            className={`${
+              line.type === 'prompt' 
+                ? 'text-muted-foreground/60' 
+                : 'text-foreground'
+            }`}
+          >
+            {line.type === 'prompt' && (
+              <span className="text-muted-foreground/40 mr-2">$</span>
+            )}
+            {line.content}
+            {hasInlineOutput && (
+              <span className="text-foreground ml-2">{originalLine.inlineOutput}</span>
+            )}
+            {index === displayLines.length - 1 && showCursor && (
+              <span className="inline-block w-[8px] h-[1.2em] bg-foreground ml-0.5 align-middle" />
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
