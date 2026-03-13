@@ -16,26 +16,21 @@ function ArticleCard({ post }: { post: Post }) {
   return (
     <Link
       href={`/content/${post.slug}`}
-      className="group bg-card border border-border/50 rounded-lg p-4 hover:border-foreground/20 transition-all duration-300 cursor-pointer flex flex-col h-full"
+      className="group bg-card border border-border/30 rounded-lg p-3 hover:border-foreground/15 transition-all duration-300 cursor-pointer flex flex-col h-full"
     >
-      {/* 标题 - 增加上下边距 */}
-      <h3 className="font-semibold text-base mb-4 group-hover:text-foreground/80 transition-colors line-clamp-2 leading-snug">
+      {/* 标题 - 1.5倍字号，设计感黑体 */}
+      <h3 className="font-semibold text-lg leading-tight mb-2 group-hover:text-foreground/80 transition-colors line-clamp-2" style={{ fontFamily: "'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif" }}>
         {post.title}
       </h3>
 
-      {/* 摘要 */}
-      <p className="text-sm text-muted-foreground line-clamp-2 flex-1 mb-4">
+      {/* 摘要 - 最多两行 */}
+      <p className="text-sm text-muted-foreground line-clamp-2 flex-1 mb-2">
         {post.excerpt}
       </p>
 
-      {/* 底部：时间和标签 */}
-      <div className="flex items-center gap-2 text-xs text-muted-foreground/60 mt-auto">
+      {/* 底部：时间 */}
+      <div className="text-xs text-muted-foreground/50">
         <span>{post.date}</span>
-        {post.tags.slice(0, 2).map((tag) => (
-          <span key={tag} className="text-muted-foreground/50">
-            #{tag.split('/').pop()}
-          </span>
-        ))}
       </div>
     </Link>
   );
@@ -92,8 +87,8 @@ export function ContentClient({ posts }: ContentClientProps) {
               ))}
             </div>
             
-            {/* 文章列表 - 手机端两列，间距一致 */}
-            <div className="grid grid-cols-2 gap-3">
+            {/* 文章列表 - 间距减小 */}
+            <div className="grid grid-cols-2 gap-2">
               {posts.map((post) => (
                 <ArticleCard key={post.slug} post={post} />
               ))}

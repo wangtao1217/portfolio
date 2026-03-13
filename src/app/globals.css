@@ -282,13 +282,23 @@ html {
   font-weight: 600;
   color: hsl(var(--foreground));
   background-color: hsl(var(--muted));
+  border-right: 1px solid hsl(var(--border) / 0.5);
+}
+
+.prose th:last-child {
+  border-right: none;
 }
 
 .prose td {
   padding: 0.75rem;
   border-bottom: 1px solid hsl(var(--border));
+  border-right: 1px solid hsl(var(--border) / 0.5);
   vertical-align: top;
   background-color: hsl(var(--card));
+}
+
+.prose td:last-child {
+  border-right: none;
 }
 
 .prose tr:last-child td {
@@ -329,4 +339,10 @@ html {
 .prose del {
   text-decoration: line-through;
   color: hsl(var(--muted-foreground));
+}
+
+/* 荧光绿高亮样式 */
+.highlight {
+  background: linear-gradient(180deg, transparent 60%, rgba(132, 204, 22, 0.6) 60%);
+  padding: 0 2px;
 }

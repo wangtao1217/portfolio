@@ -62,11 +62,11 @@ export default function MainLayout({
       {/* Footer */}
       <footer className="bg-foreground text-background py-6 relative z-10 mt-20">
         <div className="max-w-[1200px] mx-auto px-3 sm:px-5">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            {/* 左侧：版权信息 */}
+          <div className="flex flex-col sm:flex-row items-start gap-2">
+            {/* 版权信息 */}
             <p className="text-xs text-background/50">© 2026 深澜</p>
             
-            {/* 右侧：邮箱地址 */}
+            {/* 邮箱地址 */}
             <a href="mailto:x96577213@163.com" className="text-xs text-background/50 hover:text-background/80 transition-colors">
               x96577213@163.com
             </a>
