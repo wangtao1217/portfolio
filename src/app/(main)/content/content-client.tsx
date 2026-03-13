@@ -29,10 +29,10 @@ function ArticleCard({ post }: { post: Post }) {
       href={`/content/${post.slug}`}
       className="group bg-card border border-border/20 rounded-lg p-2.5 hover:border-foreground/10 transition-all duration-300 cursor-pointer flex flex-col h-full"
     >
-      {/* 标题容器 - 高度自适应，增加行距 */}
+      {/* 标题容器 - 高度自适应，缩小行距 */}
       <div className="mb-3">
         <h3 
-          className="font-normal text-xl leading-relaxed group-hover:text-foreground/80 transition-colors line-clamp-2"
+          className="font-normal text-xl leading-snug group-hover:text-foreground/80 transition-colors line-clamp-2"
           style={{ fontFamily: "'Source Han Sans SC', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif" }}
         >
           {post.title}
@@ -72,10 +72,11 @@ export function ContentClient({ posts }: ContentClientProps) {
       if (!navRef.current || !navWrapperRef.current) return;
       
       const navRect = navRef.current.getBoundingClientRect();
+      const wrapperRect = navWrapperRef.current.getBoundingClientRect();
       const headerHeight = 56; // 顶部导航高度
       
       // 当导航上边界接触到顶部导航下边界时固定
-      if (navRect.top <= headerHeight) {
+      if (navRect.top <= headerHeight && wrapperRect.top < headerHeight) {
         setIsNavSticky(true);
       } else {
         setIsNavSticky(false);
@@ -108,7 +109,7 @@ export function ContentClient({ posts }: ContentClientProps) {
                 ref={navRef}
                 className={`flex items-center gap-1 overflow-x-auto pb-3 mb-6 scrollbar-hide -mx-3 px-3 transition-all duration-300 ${
                   isNavSticky 
-                    ? 'fixed left-0 right-0 top-14 z-40 bg-background/95 backdrop-blur-sm border-b border-border/20 py-2 mb-0' 
+                    ? 'fixed left-0 right-0 top-14 z-40 bg-background border-b border-border py-2 mb-0' 
                     : ''
                 }`}
                 style={isNavSticky ? { marginLeft: '0', marginRight: '0', paddingLeft: '1rem', paddingRight: '1rem' } : {}}
