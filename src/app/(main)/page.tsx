@@ -94,16 +94,16 @@ function TerminalTypewriter({ lines, typingSpeed = 60, linePause = 800 }: {
           key={index} 
           className={`${
             line.type === 'prompt' 
-              ? 'text-foreground/50' 
+              ? 'text-[#84cc16]/60' 
               : 'text-foreground'
           }`}
         >
           {line.type === 'prompt' && (
-            <span className="text-foreground/30 mr-2">$</span>
+            <span className="text-[#84cc16]/40 mr-2">$</span>
           )}
           {line.content}
           {index === displayLines.length - 1 && showCursor && (
-            <span className="inline-block w-[8px] h-[1.2em] bg-foreground/80 ml-0.5" />
+            <span className="inline-block w-[8px] h-[1.2em] bg-[#84cc16] ml-0.5" />
           )}
         </div>
       ))}
@@ -148,9 +148,8 @@ function TypingBadge({ text }: { text: string }) {
   }, []);
 
   return (
-    <span className="ml-2 text-xs text-muted-foreground/50 font-mono inline-flex items-center">
-      [<span className="mx-0.5">{displayText}</span>{!isComplete && showCursor && <span className="inline-block w-[6px] h-[1em] bg-muted-foreground/60" />}]
-    </span>
+    <span className="ml-2 text-xs text-[#84cc16]/70 font-mono inline-flex items-center">
+      [<span className="mx-0.5">{displayText}</span>{!isComplete && showCursor && <span className="inline-block w-[6px] h-[1em] bg-[#84cc16]/60" />}]</span>
   );
 }
 
@@ -199,18 +198,18 @@ function NavCard({ card, index, total }: { card: typeof navCards[0]; index: numb
 
       <div className="flex flex-col items-start">
         {/* 序号 - 放上面左对齐 */}
-        <span className="text-xs font-sans text-muted-foreground/40 mb-3">
+        <span className="text-xs font-sans text-[#84cc16]/60 mb-3">
           {card.subtitle}
         </span>
 
         {/* 英文标题 */}
         <div className="relative">
-          <h2 className="text-lg sm:text-xl font-bold tracking-tight mb-2 transition-colors duration-300 group-hover:text-foreground font-sans">
+          <h2 className="text-lg sm:text-xl font-bold tracking-tight mb-2 transition-colors duration-300 group-hover:text-[#84cc16] font-sans">
             {card.title}
           </h2>
           {/* 悬停下划线 */}
           <div
-            className={`absolute bottom-0 left-0 h-[2px] bg-foreground transition-all duration-500 ${
+            className={`absolute bottom-0 left-0 h-[2px] bg-[#84cc16] transition-all duration-500 ${
               isHovered ? 'w-full opacity-100' : 'w-0 opacity-0'
             }`}
           />
@@ -226,7 +225,7 @@ function NavCard({ card, index, total }: { card: typeof navCards[0]; index: numb
       <ArrowRight
         className={`h-5 w-5 flex-shrink-0 ml-4 transition-all duration-300 ${
           isHovered
-            ? 'text-foreground translate-x-1'
+            ? 'text-[#84cc16] translate-x-1'
             : 'text-muted-foreground/40'
         }`}
       />
@@ -246,11 +245,11 @@ function SocialIcon({ href, icon: Icon, label }: { href: string; icon: React.Ele
       aria-label={label}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative w-10 h-10 rounded-full flex items-center justify-center overflow-hidden border border-white/20 transition-all duration-300 hover:border-white/60"
+      className="relative w-10 h-10 rounded-full flex items-center justify-center overflow-hidden border border-[#84cc16]/30 transition-all duration-300 hover:border-[#84cc16] hover:bg-[#84cc16]/10"
     >
       <Icon 
         className={`h-4 w-4 transition-colors duration-300 ${
-          isHovered ? 'text-white' : 'text-white/50'
+          isHovered ? 'text-[#84cc16]' : 'text-[#84cc16]/60'
         }`} 
       />
     </a>
@@ -281,8 +280,8 @@ export default function Home() {
             <div />
             <div className="p-5 flex justify-center">
               <div className="w-full max-w-[800px]">
-                {/* 标题 */}
-                <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6 font-sans">
+                {/* 标题 - 加大字号 */}
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-8 font-sans text-foreground">
                   To make the world better.
                 </h1>
                 {/* 打字机内容 */}
@@ -334,38 +333,38 @@ export default function Home() {
             <div />
             <div className="p-5 flex justify-center">
               <div className="w-full max-w-[800px]">
-                {/* EXPLORE 标题 - 使用导航卡片样式 */}
+                {/* EXPLORE 标题 - 加大字号 */}
                 <div className="mb-8 mt-4">
-                  <h2 className="text-3xl sm:text-4xl font-bold tracking-tight font-sans">
+                  <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight font-sans text-foreground">
                     Explore.
                   </h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* 推荐卡片 1 - 加工中（打字机效果） */}
-                  <Link href="/content/amazon-sop-wip" className="group bg-card border border-transparent rounded-xl p-6 min-h-[180px] hover:border-foreground/10 transition-all duration-300 cursor-pointer flex flex-col">
-                    <span className="text-xs text-muted-foreground mb-3 block">运营</span>
-                    <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground/80 transition-colors">
+                  <Link href="/content/amazon-sop-wip" className="group bg-white border border-gray-200 rounded-xl p-6 min-h-[180px] hover:border-[#84cc16] hover:shadow-lg hover:shadow-[#84cc16]/10 transition-all duration-300 cursor-pointer flex flex-col">
+                    <span className="text-xs text-[#84cc16] mb-3 block font-medium">运营</span>
+                    <h3 className="font-semibold text-lg mb-3 group-hover:text-[#84cc16] transition-colors">
                       亚马逊运营全流程SOP实践笔记
                       <TypingBadge text="加工中" />
                     </h3>
                     <p className="text-sm text-muted-foreground line-clamp-3 flex-1">从零到一搭建亚马逊运营体系，涵盖选品、Listing、广告、库存全链路SOP。</p>
                   </Link>
                   {/* 推荐卡片 2 */}
-                  <Link href="/content/cross-border-ecommerce-overview" className="group bg-card border border-transparent rounded-xl p-6 min-h-[180px] hover:border-foreground/10 transition-all duration-300 cursor-pointer flex flex-col">
-                    <span className="text-xs text-muted-foreground mb-3 block">商业</span>
-                    <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground/80 transition-colors">跨境电商全局纵观</h3>
+                  <Link href="/content/cross-border-ecommerce-overview" className="group bg-white border border-gray-200 rounded-xl p-6 min-h-[180px] hover:border-[#84cc16] hover:shadow-lg hover:shadow-[#84cc16]/10 transition-all duration-300 cursor-pointer flex flex-col">
+                    <span className="text-xs text-[#84cc16] mb-3 block font-medium">商业</span>
+                    <h3 className="font-semibold text-lg mb-3 group-hover:text-[#84cc16] transition-colors">跨境电商全局纵观</h3>
                     <p className="text-sm text-muted-foreground line-clamp-3 flex-1">从商业价值创造本质出发，剖析跨境电商的三重本质与价值闭环。</p>
                   </Link>
                   {/* 推荐卡片 3 */}
-                  <Link href="/content/operation-system-overview" className="group bg-card border border-transparent rounded-xl p-6 min-h-[180px] hover:border-foreground/10 transition-all duration-300 cursor-pointer flex flex-col">
-                    <span className="text-xs text-muted-foreground mb-3 block">运营</span>
-                    <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground/80 transition-colors">运营纵览笔记</h3>
+                  <Link href="/content/operation-system-overview" className="group bg-white border border-gray-200 rounded-xl p-6 min-h-[180px] hover:border-[#84cc16] hover:shadow-lg hover:shadow-[#84cc16]/10 transition-all duration-300 cursor-pointer flex flex-col">
+                    <span className="text-xs text-[#84cc16] mb-3 block font-medium">运营</span>
+                    <h3 className="font-semibold text-lg mb-3 group-hover:text-[#84cc16] transition-colors">运营纵览笔记</h3>
                     <p className="text-sm text-muted-foreground line-clamp-3 flex-1">从第一性原理拆解运营本质，构建流量、转化、交付、用户的四环节飞轮。</p>
                   </Link>
                   {/* 推荐卡片 4 - 待加工 */}
-                  <div className="group bg-card border border-transparent rounded-xl p-6 min-h-[180px] hover:border-foreground/10 transition-all duration-300 cursor-pointer flex flex-col">
-                    <span className="text-xs text-muted-foreground mb-3 block">随笔</span>
-                    <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground/80 transition-colors">
+                  <div className="group bg-white border border-gray-200 rounded-xl p-6 min-h-[180px] hover:border-[#84cc16] hover:shadow-lg hover:shadow-[#84cc16]/10 transition-all duration-300 cursor-pointer flex flex-col">
+                    <span className="text-xs text-[#84cc16] mb-3 block font-medium">随笔</span>
+                    <h3 className="font-semibold text-lg mb-3 group-hover:text-[#84cc16] transition-colors">
                       2026年度总结
                       <span className="ml-2 text-xs text-muted-foreground/50">「待加工」</span>
                     </h3>
