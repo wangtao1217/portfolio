@@ -29,8 +29,8 @@ function ArticleCard({ post }: { post: Post }) {
       href={`/content/${post.slug}`}
       className="group bg-card border border-border/20 rounded-lg p-2.5 hover:border-foreground/10 transition-all duration-300 cursor-pointer flex flex-col h-full"
     >
-      {/* 标题容器 - 高度自适应内容 */}
-      <div className="mb-5">
+      {/* 标题容器 - 高度自适应内容，与概述间距40px */}
+      <div className="mb-[40px]">
         <h3 
           className="font-normal text-xl leading-relaxed group-hover:text-foreground/80 transition-colors line-clamp-2"
           style={{ fontFamily: "'Source Han Sans SC', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif" }}
