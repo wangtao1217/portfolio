@@ -66,17 +66,23 @@ export function ContentClient({ posts }: ContentClientProps) {
   const [isNavSticky, setIsNavSticky] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
   const navWrapperRef = useRef<HTMLDivElement>(null);
+  const navHeightRef = useRef(0);
 
   useEffect(() => {
+    // 记录导航原始高度
+    if (navRef.current) {
+      navHeightRef.current = navRef.current.offsetHeight;
+    }
+
     const handleScroll = () => {
       if (!navRef.current || !navWrapperRef.current) return;
       
-      const navRect = navRef.current.getBoundingClientRect();
       const wrapperRect = navWrapperRef.current.getBoundingClientRect();
       const headerHeight = 56; // 顶部导航高度
       
-      // 当导航上边界接触到顶部导航下边界时固定
-      if (navRect.top <= headerHeight && wrapperRect.top < headerHeight) {
+      // 当包装器的顶部进入顶部导航下方时，导航应该固定
+      // 当包装器的顶部离开顶部导航下方时，导航应该恢复
+      if (wrapperRect.top <= headerHeight) {
         setIsNavSticky(true);
       } else {
         setIsNavSticky(false);
@@ -84,6 +90,7 @@ export function ContentClient({ posts }: ContentClientProps) {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // 初始检查
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -102,17 +109,16 @@ export function ContentClient({ posts }: ContentClientProps) {
               </h1>
             </div>
 
-            {/* 筛选导航包装器 */}
-            <div ref={navWrapperRef} className="relative">
+            {/* 筛选导航包装器 - 无感固定 */}
+            <div ref={navWrapperRef} className="relative" style={{ minHeight: isNavSticky ? navHeightRef.current : undefined }}>
               {/* 筛选导航 - 支持左右滑动，可固定 */}
               <div 
                 ref={navRef}
-                className={`flex items-center gap-1 overflow-x-auto pb-3 mb-6 scrollbar-hide -mx-3 px-3 transition-all duration-300 ${
+                className={`flex items-center gap-1 overflow-x-auto pb-3 mb-6 scrollbar-hide -mx-3 px-3 bg-background transition-all duration-200 ${
                   isNavSticky 
-                    ? 'fixed left-0 right-0 top-14 z-40 bg-background border-b border-border py-2 mb-0' 
-                    : ''
+                    ? 'fixed left-0 right-0 top-14 z-40 border-b border-border/30 py-3 mb-0' 
+                    : 'relative'
                 }`}
-                style={isNavSticky ? { marginLeft: '0', marginRight: '0', paddingLeft: '1rem', paddingRight: '1rem' } : {}}
               >
                 {filterTags.map((tag) => (
                   <button
@@ -132,9 +138,6 @@ export function ContentClient({ posts }: ContentClientProps) {
                   </button>
                 ))}
               </div>
-              
-              {/* 占位符，防止固定时内容跳动 */}
-              {isNavSticky && <div className="h-12" />}
             </div>
             
             {/* 文章列表 - 间距减小 */}

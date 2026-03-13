@@ -5,131 +5,127 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { GridBackground } from '@/components/ui/grid-background';
 
-// Terminal 风格的命令行历史 - 5句一个循环
+// Terminal 风格的命令行历史 - 3句一个循环
 const terminalLines = [
   { type: 'prompt', content: 'whoami' },
   { type: 'output', content: '深澜 / Cross-border E-commerce × Tech' },
-  { type: 'prompt', content: 'cat motto.txt' },
+  { type: 'prompt', content: 'cat Laizi.txt' },
   { type: 'output', content: '' }, // 动态填充
-  { type: 'prompt', content: 'cat motto.txt' },
+  { type: 'prompt', content: 'cat Laizi.txt' },
   { type: 'output', content: '' }, // 动态填充
-  { type: 'prompt', content: 'cat motto.txt' },
-  { type: 'output', content: '' }, // 动态填充
-  { type: 'prompt', content: 'cat motto.txt' },
-  { type: 'output', content: '' }, // 动态填充
-  { type: 'prompt', content: 'cat motto.txt' },
+  { type: 'prompt', content: 'cat Laizi.txt' },
   { type: 'output', content: '' }, // 动态填充
 ];
 
-// 100条哲思语句
+// 100条哲思语句 - 只包含句子，作者名用于替换motto
 const mottos = [
-  "The unexamined life is not worth living. — Socrates",
-  "Know thyself. — Socrates",
-  "Virtue is the only true good. — Socrates",
-  "Wisdom begins in wonder. — Socrates",
-  "To find yourself, think for yourself. — Socrates",
-  "The only true wisdom is in knowing you know nothing. — Socrates",
-  "An honest man is always a child. — Socrates",
-  "Strong minds discuss ideas, average minds discuss events. — Socrates",
-  "He who is not a good servant will not be a good master. — Socrates",
-  "The way to gain a good reputation is to endeavor to be what you desire. — Socrates",
-  "Happiness depends upon ourselves. — Aristotle",
-  "Excellence is never an accident. — Aristotle",
-  "The whole is greater than the sum of its parts. — Aristotle",
-  "We are what we repeatedly do. Excellence is not an act, but a habit. — Aristotle",
-  "Pleasure in the job puts perfection in the work. — Aristotle",
-  "It is the mark of an educated mind to entertain a thought without accepting it. — Aristotle",
-  "The aim of art is to represent the inward significance. — Aristotle",
-  "Quality is not an act, it is a habit. — Aristotle",
-  "Man is by nature a political animal. — Aristotle",
-  "The roots of education are bitter, but the fruit is sweet. — Aristotle",
-  "Life must be understood backward, but lived forward. — Kierkegaard",
-  "Anxiety is the dizziness of freedom. — Kierkegaard",
-  "The function of prayer is to change the nature of the one who prays. — Kierkegaard",
-  "Face the facts of being what you are. — Kierkegaard",
-  "To dare is to lose one's footing momentarily. — Kierkegaard",
-  "The most common form of despair is not being who you are. — Kierkegaard",
-  "There are two ways to be fooled. — Kierkegaard",
-  "Patience is necessary. — Kierkegaard",
-  "Boredom is the root of all evil. — Kierkegaard",
-  "The tyrant dies and his rule is over. — Kierkegaard",
-  "Man is condemned to be free. — Sartre",
-  "Hell is other people. — Sartre",
-  "Existence precedes essence. — Sartre",
-  "Freedom is what you do with what's been done to you. — Sartre",
-  "We are our choices. — Sartre",
-  "Life begins on the other side of despair. — Sartre",
-  "If you are lonely when you're alone, you are in bad company. — Sartre",
-  "Commitment is an act, not a word. — Sartre",
-  "Everything has been figured out, except how to live. — Sartre",
-  "There may be more beautiful times, but this one is ours. — Sartre",
-  "God is dead! He remains dead! And we have killed him. — Nietzsche",
-  "What does not kill me makes me stronger. — Nietzsche",
-  "He who has a why to live can bear almost any how. — Nietzsche",
-  "Without music, life would be a mistake. — Nietzsche",
-  "To live is to suffer, to survive is to find meaning. — Nietzsche",
-  "The higher we soar the smaller we appear. — Nietzsche",
-  "There are no facts, only interpretations. — Nietzsche",
-  "The individual has always had to struggle. — Nietzsche",
-  "You must have chaos within you to give birth to a dancing star. — Nietzsche",
-  "One is not born, but rather becomes, a woman. — Beauvoir",
-  "I am too intelligent to be taken charge of entirely. — Beauvoir",
-  "Change your life today. Don't gamble on the future. — Beauvoir",
-  "Self-knowledge can supply the courage to fight for happiness. — Beauvoir",
-  "One's life has value through love and compassion. — Beauvoir",
-  "I tore myself away from the safe comfort of certainties. — Beauvoir",
-  "Representation of the world is the work of men. — Beauvoir",
-  "The ideal should be to be capable of loving anyone. — Beauvoir",
-  "Sex pleasure demands complete abandon. — Beauvoir",
-  "The mind is everything. What you think you become. — Buddha",
-  "Peace comes from within. Do not seek it without. — Buddha",
-  "Three things cannot be long hidden. — Buddha",
-  "Do not dwell in the past, do not dream of the future. — Buddha",
-  "The only real failure is not to be true to the best one knows. — Buddha",
-  "Health is the greatest gift. — Buddha",
-  "Thousands of candles can be lighted from a single candle. — Buddha",
-  "We are shaped by our thoughts. — Buddha",
-  "Holding on to anger is like grasping a hot coal. — Buddha",
-  "The journey of a thousand miles begins with one step. — Laozi",
-  "A good traveler has no fixed plans. — Laozi",
-  "Nature does not hurry, yet everything is accomplished. — Laozi",
-  "Those who know do not speak. — Laozi",
-  "When I let go of what I am, I become what I might be. — Laozi",
-  "Mastering yourself is true power. — Laozi",
-  "The best fighter is never angry. — Laozi",
-  "Silence is a source of great strength. — Laozi",
-  "To the mind that is still, the whole universe surrenders. — Laozi",
-  "I think, therefore I am. — Descartes",
-  "The reading of all good books is like conversation. — Descartes",
-  "It is not enough to have a good mind. — Descartes",
-  "Divide each difficulty into as many parts as feasible. — Descartes",
-  "The greatest minds are capable of the greatest vices. — Descartes",
-  "Except our own thoughts, there is nothing in our power. — Descartes",
-  "Each problem solved became a rule for other problems. — Descartes",
-  "Never accept a thing as true without a single doubt. — Descartes",
-  "Conquer yourself rather than the world. — Descartes",
-  "We live in the best of all possible worlds. — Leibniz",
-  "Music is the pleasure of counting without awareness. — Leibniz",
-  "To love is to place our happiness in another. — Leibniz",
-  "The present is big with the future. — Leibniz",
-  "There is no place for a timid soul. — Leibniz",
-  "Men act like brutes through memory only. — Leibniz",
-  "The soul is the mirror of an indestructible universe. — Leibniz",
-  "Perception is the inner state of the monad. — Leibniz",
-  "Man is born free, and everywhere he is in chains. — Rousseau",
-  "The world of imagination is boundless. — Rousseau",
-  "Patience is bitter, but its fruit is sweet. — Rousseau",
-  "People who know little are usually great talkers. — Rousseau",
-  "What wisdom can you find greater than kindness? — Rousseau",
-  "It is too difficult to think nobly when earning a living. — Rousseau",
-  "The strongest is never strong enough to always be master. — Rousseau",
-  "To endure is the first thing a child ought to learn. — Rousseau",
-  "Gratitude is a duty which ought to be paid. — Rousseau",
-  "Civilization is a hopeless race to discover remedies. — Rousseau",
+  { text: "The unexamined life is not worth living.", author: "Socrates" },
+  { text: "Know thyself.", author: "Socrates" },
+  { text: "Virtue is the only true good.", author: "Socrates" },
+  { text: "Wisdom begins in wonder.", author: "Socrates" },
+  { text: "To find yourself, think for yourself.", author: "Socrates" },
+  { text: "The only true wisdom is in knowing you know nothing.", author: "Socrates" },
+  { text: "An honest man is always a child.", author: "Socrates" },
+  { text: "Strong minds discuss ideas, average minds discuss events.", author: "Socrates" },
+  { text: "He who is not a good servant will not be a good master.", author: "Socrates" },
+  { text: "The way to gain a good reputation is to endeavor to be what you desire.", author: "Socrates" },
+  { text: "Happiness depends upon ourselves.", author: "Aristotle" },
+  { text: "Excellence is never an accident.", author: "Aristotle" },
+  { text: "The whole is greater than the sum of its parts.", author: "Aristotle" },
+  { text: "We are what we repeatedly do. Excellence is not an act, but a habit.", author: "Aristotle" },
+  { text: "Pleasure in the job puts perfection in the work.", author: "Aristotle" },
+  { text: "It is the mark of an educated mind to entertain a thought without accepting it.", author: "Aristotle" },
+  { text: "The aim of art is to represent the inward significance.", author: "Aristotle" },
+  { text: "Quality is not an act, it is a habit.", author: "Aristotle" },
+  { text: "Man is by nature a political animal.", author: "Aristotle" },
+  { text: "The roots of education are bitter, but the fruit is sweet.", author: "Aristotle" },
+  { text: "Life must be understood backward, but lived forward.", author: "Kierkegaard" },
+  { text: "Anxiety is the dizziness of freedom.", author: "Kierkegaard" },
+  { text: "The function of prayer is to change the nature of the one who prays.", author: "Kierkegaard" },
+  { text: "Face the facts of being what you are.", author: "Kierkegaard" },
+  { text: "To dare is to lose one's footing momentarily.", author: "Kierkegaard" },
+  { text: "The most common form of despair is not being who you are.", author: "Kierkegaard" },
+  { text: "There are two ways to be fooled.", author: "Kierkegaard" },
+  { text: "Patience is necessary.", author: "Kierkegaard" },
+  { text: "Boredom is the root of all evil.", author: "Kierkegaard" },
+  { text: "The tyrant dies and his rule is over.", author: "Kierkegaard" },
+  { text: "Man is condemned to be free.", author: "Sartre" },
+  { text: "Hell is other people.", author: "Sartre" },
+  { text: "Existence precedes essence.", author: "Sartre" },
+  { text: "Freedom is what you do with what's been done to you.", author: "Sartre" },
+  { text: "We are our choices.", author: "Sartre" },
+  { text: "Life begins on the other side of despair.", author: "Sartre" },
+  { text: "If you are lonely when you're alone, you are in bad company.", author: "Sartre" },
+  { text: "Commitment is an act, not a word.", author: "Sartre" },
+  { text: "Everything has been figured out, except how to live.", author: "Sartre" },
+  { text: "There may be more beautiful times, but this one is ours.", author: "Sartre" },
+  { text: "God is dead! He remains dead! And we have killed him.", author: "Nietzsche" },
+  { text: "What does not kill me makes me stronger.", author: "Nietzsche" },
+  { text: "He who has a why to live can bear almost any how.", author: "Nietzsche" },
+  { text: "Without music, life would be a mistake.", author: "Nietzsche" },
+  { text: "To live is to suffer, to survive is to find meaning.", author: "Nietzsche" },
+  { text: "The higher we soar the smaller we appear.", author: "Nietzsche" },
+  { text: "There are no facts, only interpretations.", author: "Nietzsche" },
+  { text: "The individual has always had to struggle.", author: "Nietzsche" },
+  { text: "You must have chaos within you to give birth to a dancing star.", author: "Nietzsche" },
+  { text: "One is not born, but rather becomes, a woman.", author: "Beauvoir" },
+  { text: "I am too intelligent to be taken charge of entirely.", author: "Beauvoir" },
+  { text: "Change your life today. Don't gamble on the future.", author: "Beauvoir" },
+  { text: "Self-knowledge can supply the courage to fight for happiness.", author: "Beauvoir" },
+  { text: "One's life has value through love and compassion.", author: "Beauvoir" },
+  { text: "I tore myself away from the safe comfort of certainties.", author: "Beauvoir" },
+  { text: "Representation of the world is the work of men.", author: "Beauvoir" },
+  { text: "The ideal should be to be capable of loving anyone.", author: "Beauvoir" },
+  { text: "Sex pleasure demands complete abandon.", author: "Beauvoir" },
+  { text: "The mind is everything. What you think you become.", author: "Buddha" },
+  { text: "Peace comes from within. Do not seek it without.", author: "Buddha" },
+  { text: "Three things cannot be long hidden.", author: "Buddha" },
+  { text: "Do not dwell in the past, do not dream of the future.", author: "Buddha" },
+  { text: "The only real failure is not to be true to the best one knows.", author: "Buddha" },
+  { text: "Health is the greatest gift.", author: "Buddha" },
+  { text: "Thousands of candles can be lighted from a single candle.", author: "Buddha" },
+  { text: "We are shaped by our thoughts.", author: "Buddha" },
+  { text: "Holding on to anger is like grasping a hot coal.", author: "Buddha" },
+  { text: "The journey of a thousand miles begins with one step.", author: "Laozi" },
+  { text: "A good traveler has no fixed plans.", author: "Laozi" },
+  { text: "Nature does not hurry, yet everything is accomplished.", author: "Laozi" },
+  { text: "Those who know do not speak.", author: "Laozi" },
+  { text: "When I let go of what I am, I become what I might be.", author: "Laozi" },
+  { text: "Mastering yourself is true power.", author: "Laozi" },
+  { text: "The best fighter is never angry.", author: "Laozi" },
+  { text: "Silence is a source of great strength.", author: "Laozi" },
+  { text: "To the mind that is still, the whole universe surrenders.", author: "Laozi" },
+  { text: "I think, therefore I am.", author: "Descartes" },
+  { text: "The reading of all good books is like conversation.", author: "Descartes" },
+  { text: "It is not enough to have a good mind.", author: "Descartes" },
+  { text: "Divide each difficulty into as many parts as feasible.", author: "Descartes" },
+  { text: "The greatest minds are capable of the greatest vices.", author: "Descartes" },
+  { text: "Except our own thoughts, there is nothing in our power.", author: "Descartes" },
+  { text: "Each problem solved became a rule for other problems.", author: "Descartes" },
+  { text: "Never accept a thing as true without a single doubt.", author: "Descartes" },
+  { text: "Conquer yourself rather than the world.", author: "Descartes" },
+  { text: "We live in the best of all possible worlds.", author: "Leibniz" },
+  { text: "Music is the pleasure of counting without awareness.", author: "Leibniz" },
+  { text: "To love is to place our happiness in another.", author: "Leibniz" },
+  { text: "The present is big with the future.", author: "Leibniz" },
+  { text: "There is no place for a timid soul.", author: "Leibniz" },
+  { text: "Men act like brutes through memory only.", author: "Leibniz" },
+  { text: "The soul is the mirror of an indestructible universe.", author: "Leibniz" },
+  { text: "Perception is the inner state of the monad.", author: "Leibniz" },
+  { text: "Man is born free, and everywhere he is in chains.", author: "Rousseau" },
+  { text: "The world of imagination is boundless.", author: "Rousseau" },
+  { text: "Patience is bitter, but its fruit is sweet.", author: "Rousseau" },
+  { text: "People who know little are usually great talkers.", author: "Rousseau" },
+  { text: "What wisdom can you find greater than kindness?", author: "Rousseau" },
+  { text: "It is too difficult to think nobly when earning a living.", author: "Rousseau" },
+  { text: "The strongest is never strong enough to always be master.", author: "Rousseau" },
+  { text: "To endure is the first thing a child ought to learn.", author: "Rousseau" },
+  { text: "Gratitude is a duty which ought to be paid.", author: "Rousseau" },
+  { text: "Civilization is a hopeless race to discover remedies.", author: "Rousseau" },
 ];
 
-// Terminal 打字机组件 - 5句循环
-function TerminalTypewriter({ typingSpeed = 60, linePause = 800 }: { 
+// Terminal 打字机组件 - 3句循环，速度稍慢
+function TerminalTypewriter({ typingSpeed = 70, linePause = 900 }: { 
   typingSpeed?: number;
   linePause?: number;
 }) {
@@ -159,19 +155,20 @@ function TerminalTypewriter({ typingSpeed = 60, linePause = 800 }: {
     if (line.type === 'prompt') {
       return line.content;
     }
-    // output 行使用 motto
-    const mottoIndex = (mottoOffset + Math.floor(index / 2)) % mottos.length;
-    return mottos[mottoIndex];
+    // output 行使用 motto，作者名替换 "motto"
+    const mottoIndex = (mottoOffset + Math.floor((index - 1) / 2)) % mottos.length;
+    const motto = mottos[mottoIndex];
+    return `@${motto.author}: ${motto.text}`;
   };
 
   useEffect(() => {
     if (currentLineIndex >= terminalLines.length) {
-      // 5句完成后重置
+      // 3句完成后重置
       const timeout = setTimeout(() => {
         setDisplayLines([]);
         setCurrentLineIndex(0);
         setCurrentCharIndex(0);
-        setMottoOffset(prev => (prev + 5) % mottos.length);
+        setMottoOffset(prev => (prev + 3) % mottos.length);
       }, 3000);
       return () => clearTimeout(timeout);
     }
@@ -381,7 +378,7 @@ export default function Home() {
                 </h1>
                 {/* 打字机内容 */}
                 <div className="h-[240px]">
-                  {mounted && <TerminalTypewriter typingSpeed={50} linePause={600} />}
+                  {mounted && <TerminalTypewriter typingSpeed={70} linePause={900} />}
                 </div>
               </div>
             </div>
