@@ -1,9 +1,8 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Github, Twitter, Linkedin, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { Container, HStack } from '@/components/layout';
 import { GridBackground } from '@/components/ui/grid-background';
 
 // Terminal 风格的命令行历史
@@ -87,23 +86,23 @@ function TerminalTypewriter({ lines, typingSpeed = 60, linePause = 800 }: {
   return (
     <div 
       ref={scrollRef}
-      className="font-sans text-sm sm:text-base h-full overflow-y-auto no-scrollbar"
+      className="font-mono text-sm sm:text-base h-full overflow-y-auto no-scrollbar"
     >
       {displayLines.map((line, index) => (
         <div 
           key={index} 
           className={`${
             line.type === 'prompt' 
-              ? 'text-[#84cc16]/60' 
+              ? 'text-muted-foreground/60' 
               : 'text-foreground'
           }`}
         >
           {line.type === 'prompt' && (
-            <span className="text-[#84cc16]/40 mr-2">$</span>
+            <span className="text-muted-foreground/40 mr-2">$</span>
           )}
           {line.content}
           {index === displayLines.length - 1 && showCursor && (
-            <span className="inline-block w-[8px] h-[1.2em] bg-[#84cc16] ml-0.5" />
+            <span className="inline-block w-[8px] h-[1.2em] bg-foreground ml-0.5" />
           )}
         </div>
       ))}
@@ -123,12 +122,10 @@ function TypingBadge({ text }: { text: string }) {
       if (index < text.length) {
         setDisplayText(text.slice(0, index + 1));
         index++;
-        // 随机打字速度，模拟真实打字
         const randomDelay = 80 + Math.random() * 60;
         setTimeout(typeNextChar, randomDelay);
       } else {
         setIsComplete(true);
-        // 完成后2秒重新开始
         setTimeout(() => {
           setDisplayText('');
           setIsComplete(false);
@@ -148,8 +145,8 @@ function TypingBadge({ text }: { text: string }) {
   }, []);
 
   return (
-    <span className="ml-2 text-xs text-[#84cc16]/70 font-mono inline-flex items-center">
-      [<span className="mx-0.5">{displayText}</span>{!isComplete && showCursor && <span className="inline-block w-[6px] h-[1em] bg-[#84cc16]/60" />}]</span>
+    <span className="ml-2 text-xs text-muted-foreground/70 font-mono inline-flex items-center">
+      [<span className="mx-0.5">{displayText}</span>{!isComplete && showCursor && <span className="inline-block w-[6px] h-[1em] bg-muted-foreground/60" />}]</span>
   );
 }
 
@@ -198,18 +195,18 @@ function NavCard({ card, index, total }: { card: typeof navCards[0]; index: numb
 
       <div className="flex flex-col items-start">
         {/* 序号 - 放上面左对齐 */}
-        <span className="text-xs font-sans text-[#84cc16]/60 mb-3">
+        <span className="text-xs font-mono text-muted-foreground/50 mb-3">
           {card.subtitle}
         </span>
 
         {/* 英文标题 */}
         <div className="relative">
-          <h2 className="text-lg sm:text-xl font-bold tracking-tight mb-2 transition-colors duration-300 group-hover:text-[#84cc16] font-sans">
+          <h2 className="text-lg sm:text-xl font-semibold tracking-tight mb-2 transition-colors duration-300 group-hover:text-foreground font-sans">
             {card.title}
           </h2>
           {/* 悬停下划线 */}
           <div
-            className={`absolute bottom-0 left-0 h-[2px] bg-[#84cc16] transition-all duration-500 ${
+            className={`absolute bottom-0 left-0 h-[1px] bg-foreground transition-all duration-500 ${
               isHovered ? 'w-full opacity-100' : 'w-0 opacity-0'
             }`}
           />
@@ -225,34 +222,11 @@ function NavCard({ card, index, total }: { card: typeof navCards[0]; index: numb
       <ArrowRight
         className={`h-5 w-5 flex-shrink-0 ml-4 transition-all duration-300 ${
           isHovered
-            ? 'text-[#84cc16] translate-x-1'
+            ? 'text-foreground translate-x-1'
             : 'text-muted-foreground/40'
         }`}
       />
     </Link>
-  );
-}
-
-// 社交媒体图标组件
-function SocialIcon({ href, icon: Icon, label }: { href: string; icon: React.ElementType; label: string }) {
-  const [isHovered, setIsHovered] = useState(false);
-  
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={label}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="relative w-10 h-10 rounded-full flex items-center justify-center overflow-hidden border border-[#84cc16]/30 transition-all duration-300 hover:border-[#84cc16] hover:bg-[#84cc16]/10"
-    >
-      <Icon 
-        className={`h-4 w-4 transition-colors duration-300 ${
-          isHovered ? 'text-[#84cc16]' : 'text-[#84cc16]/60'
-        }`} 
-      />
-    </a>
   );
 }
 
@@ -281,7 +255,7 @@ export default function Home() {
             <div className="p-5 flex justify-center">
               <div className="w-full max-w-[800px]">
                 {/* 标题 - 加大字号 */}
-                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-8 font-sans text-foreground">
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-8 font-sans text-foreground">
                   To make the world better.
                 </h1>
                 {/* 打字机内容 */}
@@ -335,36 +309,36 @@ export default function Home() {
               <div className="w-full max-w-[800px]">
                 {/* EXPLORE 标题 - 加大字号 */}
                 <div className="mb-8 mt-4">
-                  <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight font-sans text-foreground">
+                  <h2 className="text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight font-sans text-foreground">
                     Explore.
                   </h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* 推荐卡片 1 - 加工中（打字机效果） */}
-                  <Link href="/content/amazon-sop-wip" className="group bg-white border border-gray-200 rounded-xl p-6 min-h-[180px] hover:border-[#84cc16] hover:shadow-lg hover:shadow-[#84cc16]/10 transition-all duration-300 cursor-pointer flex flex-col">
-                    <span className="text-xs text-[#84cc16] mb-3 block font-medium">运营</span>
-                    <h3 className="font-semibold text-lg mb-3 group-hover:text-[#84cc16] transition-colors">
+                  <Link href="/content/amazon-sop-wip" className="group bg-card border border-border rounded-lg p-6 min-h-[180px] hover:border-foreground/30 hover:shadow-sm transition-all duration-300 cursor-pointer flex flex-col">
+                    <span className="text-xs text-muted-foreground/70 mb-3 block font-medium uppercase tracking-wider">运营</span>
+                    <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground transition-colors">
                       亚马逊运营全流程SOP实践笔记
                       <TypingBadge text="加工中" />
                     </h3>
                     <p className="text-sm text-muted-foreground line-clamp-3 flex-1">从零到一搭建亚马逊运营体系，涵盖选品、Listing、广告、库存全链路SOP。</p>
                   </Link>
                   {/* 推荐卡片 2 */}
-                  <Link href="/content/cross-border-ecommerce-overview" className="group bg-white border border-gray-200 rounded-xl p-6 min-h-[180px] hover:border-[#84cc16] hover:shadow-lg hover:shadow-[#84cc16]/10 transition-all duration-300 cursor-pointer flex flex-col">
-                    <span className="text-xs text-[#84cc16] mb-3 block font-medium">商业</span>
-                    <h3 className="font-semibold text-lg mb-3 group-hover:text-[#84cc16] transition-colors">跨境电商全局纵观</h3>
+                  <Link href="/content/cross-border-ecommerce-overview" className="group bg-card border border-border rounded-lg p-6 min-h-[180px] hover:border-foreground/30 hover:shadow-sm transition-all duration-300 cursor-pointer flex flex-col">
+                    <span className="text-xs text-muted-foreground/70 mb-3 block font-medium uppercase tracking-wider">商业</span>
+                    <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground transition-colors">跨境电商全局纵观</h3>
                     <p className="text-sm text-muted-foreground line-clamp-3 flex-1">从商业价值创造本质出发，剖析跨境电商的三重本质与价值闭环。</p>
                   </Link>
                   {/* 推荐卡片 3 */}
-                  <Link href="/content/operation-system-overview" className="group bg-white border border-gray-200 rounded-xl p-6 min-h-[180px] hover:border-[#84cc16] hover:shadow-lg hover:shadow-[#84cc16]/10 transition-all duration-300 cursor-pointer flex flex-col">
-                    <span className="text-xs text-[#84cc16] mb-3 block font-medium">运营</span>
-                    <h3 className="font-semibold text-lg mb-3 group-hover:text-[#84cc16] transition-colors">运营纵览笔记</h3>
+                  <Link href="/content/operation-system-overview" className="group bg-card border border-border rounded-lg p-6 min-h-[180px] hover:border-foreground/30 hover:shadow-sm transition-all duration-300 cursor-pointer flex flex-col">
+                    <span className="text-xs text-muted-foreground/70 mb-3 block font-medium uppercase tracking-wider">运营</span>
+                    <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground transition-colors">运营纵览笔记</h3>
                     <p className="text-sm text-muted-foreground line-clamp-3 flex-1">从第一性原理拆解运营本质，构建流量、转化、交付、用户的四环节飞轮。</p>
                   </Link>
                   {/* 推荐卡片 4 - 待加工 */}
-                  <div className="group bg-white border border-gray-200 rounded-xl p-6 min-h-[180px] hover:border-[#84cc16] hover:shadow-lg hover:shadow-[#84cc16]/10 transition-all duration-300 cursor-pointer flex flex-col">
-                    <span className="text-xs text-[#84cc16] mb-3 block font-medium">随笔</span>
-                    <h3 className="font-semibold text-lg mb-3 group-hover:text-[#84cc16] transition-colors">
+                  <div className="group bg-card border border-border rounded-lg p-6 min-h-[180px] hover:border-foreground/30 hover:shadow-sm transition-all duration-300 cursor-pointer flex flex-col">
+                    <span className="text-xs text-muted-foreground/70 mb-3 block font-medium uppercase tracking-wider">随笔</span>
+                    <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground transition-colors">
                       2026年度总结
                       <span className="ml-2 text-xs text-muted-foreground/50">「待加工」</span>
                     </h3>
