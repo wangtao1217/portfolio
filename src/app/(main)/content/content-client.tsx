@@ -11,26 +11,39 @@ interface Post {
   tags: string[];
 }
 
-// 文章卡片组件 - 新布局
+// 清理概述文本，只保留中文、英文、数字、逗号、句号和空格
+function cleanExcerpt(text: string): string {
+  // 保留：中文、英文、数字、逗号、句号、空格
+  let cleaned = text.replace(/[^\u4e00-\u9fa5a-zA-Z0-9，。\s]/g, '');
+  // 合并多个空格
+  cleaned = cleaned.replace(/\s+/g, ' ');
+  return cleaned.trim();
+}
+
+// 文章卡片组件
 function ArticleCard({ post }: { post: Post }) {
+  const cleanedExcerpt = cleanExcerpt(post.excerpt);
+  
   return (
     <Link
       href={`/content/${post.slug}`}
-      className="group bg-card border border-border/30 rounded-lg p-3 hover:border-foreground/15 transition-all duration-300 cursor-pointer flex flex-col h-full"
+      className="group bg-card border border-border/20 rounded-lg p-2.5 hover:border-foreground/10 transition-all duration-300 cursor-pointer flex flex-col h-full"
     >
-      {/* 标题 - 1.5倍字号，设计感黑体 */}
-      <h3 className="font-semibold text-lg leading-tight mb-2 group-hover:text-foreground/80 transition-colors line-clamp-2" style={{ fontFamily: "'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif" }}>
-        {post.title}
-      </h3>
+      {/* 标题容器 - 最小高度约两行 */}
+      <div className="min-h-[3.5rem] mb-1">
+        <h3 
+          className="font-bold text-xl leading-tight group-hover:text-foreground/80 transition-colors line-clamp-2"
+          style={{ fontFamily: "'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'Noto Sans SC', sans-serif" }}
+        >
+          {post.title}
+        </h3>
+      </div>
 
-      {/* 摘要 - 最多两行 */}
-      <p className="text-sm text-muted-foreground line-clamp-2 flex-1 mb-2">
-        {post.excerpt}
-      </p>
-
-      {/* 底部：时间 */}
-      <div className="text-xs text-muted-foreground/50">
-        <span>{post.date}</span>
+      {/* 摘要 - 强制两行，左下角对齐 */}
+      <div className="flex-1 flex items-end">
+        <p className="text-sm text-muted-foreground line-clamp-2 w-full">
+          {cleanedExcerpt}
+        </p>
       </div>
     </Link>
   );
@@ -88,7 +101,7 @@ export function ContentClient({ posts }: ContentClientProps) {
             </div>
             
             {/* 文章列表 - 间距减小 */}
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-1.5">
               {posts.map((post) => (
                 <ArticleCard key={post.slug} post={post} />
               ))}
