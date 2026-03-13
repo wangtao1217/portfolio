@@ -255,7 +255,7 @@ export default function Home() {
             <div className="px-5 flex justify-center">
               <div className="w-full max-w-[800px]">
                 {/* 标题 - 加大字号 */}
-                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-12 font-sans text-foreground">
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-8 font-sans text-foreground">
                   To make the world better.
                 </h1>
                 {/* 打字机内容 */}

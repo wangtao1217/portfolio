@@ -61,18 +61,18 @@ export function FloatingToc() {
 
   return (
     <>
-      {/* 悬浮按钮 - 无玻璃效果 */}
+      {/* 悬浮按钮 - 无透明效果 */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-background border border-border shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center hover:scale-105 text-foreground"
+        className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-background border border-border shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-105 text-foreground"
         aria-label="目录"
       >
         {isOpen ? <X className="h-5 w-5" /> : <TableOfContents className="h-5 w-5" />}
       </button>
 
-      {/* 侧拉面板 - 无玻璃效果 */}
+      {/* 侧拉面板 - 无透明效果 */}
       <div
-        className={`fixed bottom-20 right-6 z-40 w-64 max-h-[60vh] bg-background rounded-xl shadow-lg border border-border transition-all duration-300 overflow-hidden ${
+        className={`fixed bottom-20 right-6 z-40 w-64 max-h-[60vh] bg-background rounded-xl shadow-2xl border border-border transition-all duration-300 overflow-hidden ${
           isOpen
             ? 'opacity-100 translate-y-0 pointer-events-auto'
             : 'opacity-0 translate-y-4 pointer-events-none'

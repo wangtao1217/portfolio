@@ -4,15 +4,15 @@ import { useState } from 'react';
 import { getAllPosts } from '@/lib/posts';
 import Link from 'next/link';
 
-// 文章卡片组件
+// 文章卡片组件 - 新布局
 function ArticleCard({ post }: { post: { slug: string; title: string; excerpt: string; date: string; tags: string[] } }) {
   return (
     <Link
       href={`/content/${post.slug}`}
-      className="group bg-card border border-border/40 rounded-lg p-4 sm:p-5 hover:border-foreground/20 transition-all duration-300 cursor-pointer flex flex-col h-full"
+      className="group bg-card border border-border/50 rounded-lg p-4 hover:border-foreground/20 transition-all duration-300 cursor-pointer flex flex-col h-full"
     >
       {/* 标题 - 增加上下边距 */}
-      <h3 className="font-semibold text-base sm:text-lg mb-4 mt-1 group-hover:text-foreground/80 transition-colors line-clamp-2">
+      <h3 className="font-semibold text-base mb-4 group-hover:text-foreground/80 transition-colors line-clamp-2 leading-snug">
         {post.title}
       </h3>
 
@@ -22,7 +22,7 @@ function ArticleCard({ post }: { post: { slug: string; title: string; excerpt: s
       </p>
 
       {/* 底部：时间和标签 */}
-      <div className="flex items-center gap-2 text-xs text-muted-foreground/60 mt-auto pt-3 border-t border-border/30">
+      <div className="flex items-center gap-2 text-xs text-muted-foreground/60 mt-auto">
         <span>{post.date}</span>
         {post.tags.slice(0, 2).map((tag) => (
           <span key={tag} className="text-muted-foreground/50">
@@ -61,19 +61,17 @@ export default function ContentPage() {
               </h1>
             </div>
 
-            {/* 筛选导航 - 支持左右滑动，带下划线动画 */}
-            <div className="flex items-center gap-1 overflow-x-auto pb-3 mb-6 scrollbar-hide -mx-3 px-3 sm:mx-0 sm:px-0">
+            {/* 筛选导航 - 支持左右滑动 */}
+            <div className="flex items-center gap-1 overflow-x-auto pb-3 mb-6 scrollbar-hide -mx-3 px-3">
               {filterTags.map((tag) => (
                 <button
                   key={tag.id}
                   onClick={() => setActiveTag(tag.id)}
-                  className={`relative px-3 py-1.5 text-sm transition-colors duration-300 whitespace-nowrap ${
-                    activeTag === tag.id
-                      ? 'text-foreground'
-                      : 'text-muted-foreground/60 hover:text-muted-foreground'
-                  }`}
+                  className="relative px-3 py-1.5 text-sm whitespace-nowrap transition-colors duration-200"
                 >
-                  {tag.label}
+                  <span className={activeTag === tag.id ? 'text-foreground' : 'text-muted-foreground/60 hover:text-muted-foreground'}>
+                    {tag.label}
+                  </span>
                   {/* 下划线动画 */}
                   <span
                     className={`absolute bottom-0 left-3 right-3 h-[1px] bg-foreground transition-all duration-300 ${
@@ -84,8 +82,8 @@ export default function ContentPage() {
               ))}
             </div>
             
-            {/* 文章列表 - 手机端两列，统一间距 */}
-            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            {/* 文章列表 - 手机端两列，间距一致 */}
+            <div className="grid grid-cols-2 gap-3">
               {posts.map((post) => (
                 <ArticleCard key={post.slug} post={post} />
               ))}
