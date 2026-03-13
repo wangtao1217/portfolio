@@ -191,7 +191,7 @@ function NavCard({ card, index, total }: { card: typeof navCards[0]; index: numb
       {!isLast && (
         <div className="absolute -bottom-3 left-[-100vw] right-[-100vw] h-px sm:hidden">
           <svg className="w-full h-full" preserveAspectRatio="none">
-            <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" strokeWidth="1" strokeDasharray="4,2" opacity="0.15" />
+            <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" strokeWidth="1" strokeDasharray="4,4" opacity="0.15" />
           </svg>
         </div>
       )}
@@ -274,7 +274,7 @@ export default function Home() {
         <div className="relative">
           {/* 下边虚线 - 全屏宽度 */}
           <svg className="absolute bottom-0 left-[-50vw] right-[-50vw] h-px w-[200vw] pointer-events-none" preserveAspectRatio="none">
-            <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" strokeWidth="1" strokeDasharray="4,2" opacity="0.15" />
+            <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" strokeWidth="1" strokeDasharray="4,4" opacity="0.15" />
           </svg>
           <div className="grid grid-cols-[1fr_8fr_1fr]">
             <div />
@@ -298,11 +298,11 @@ export default function Home() {
         <div className="relative">
           {/* 上边虚线 - 全屏宽度 */}
           <svg className="absolute top-0 left-[-50vw] right-[-50vw] h-px w-[200vw] pointer-events-none" preserveAspectRatio="none">
-            <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" strokeWidth="1" strokeDasharray="4,2" opacity="0.15" />
+            <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" strokeWidth="1" strokeDasharray="4,4" opacity="0.15" />
           </svg>
           {/* 下边虚线 - 全屏宽度 */}
           <svg className="absolute bottom-0 left-[-50vw] right-[-50vw] h-px w-[200vw] pointer-events-none" preserveAspectRatio="none">
-            <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" strokeWidth="1" strokeDasharray="4,2" opacity="0.15" />
+            <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" strokeWidth="1" strokeDasharray="4,4" opacity="0.15" />
           </svg>
           <div className="grid grid-cols-[1fr_8fr_1fr]">
             <div />
@@ -323,11 +323,11 @@ export default function Home() {
         <div className="relative">
           {/* 上边虚线 - 全屏宽度 */}
           <svg className="absolute top-0 left-[-50vw] right-[-50vw] h-px w-[200vw] pointer-events-none" preserveAspectRatio="none">
-            <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" strokeWidth="1" strokeDasharray="4,2" opacity="0.15" />
+            <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" strokeWidth="1" strokeDasharray="4,4" opacity="0.15" />
           </svg>
           {/* 下边虚线 - 全屏宽度 */}
           <svg className="absolute bottom-0 left-[-50vw] right-[-50vw] h-px w-[200vw] pointer-events-none" preserveAspectRatio="none">
-            <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" strokeWidth="1" strokeDasharray="4,2" opacity="0.15" />
+            <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" strokeWidth="1" strokeDasharray="4,4" opacity="0.15" />
           </svg>
           <div className="grid grid-cols-[1fr_8fr_1fr]">
             <div />
