@@ -61,25 +61,25 @@ export function FloatingToc() {
 
   return (
     <>
-      {/* 悬浮按钮 - 毛玻璃背景 */}
+      {/* 悬浮按钮 - 无玻璃效果 */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-background/70 backdrop-blur-md border border-dashed border-border/70 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-105 text-foreground"
+        className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-background border border-border shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center hover:scale-105 text-foreground"
         aria-label="目录"
       >
         {isOpen ? <X className="h-5 w-5" /> : <TableOfContents className="h-5 w-5" />}
       </button>
 
-      {/* 侧拉面板 - 毛玻璃背景 */}
+      {/* 侧拉面板 - 无玻璃效果 */}
       <div
-        className={`fixed bottom-20 right-6 z-40 w-64 max-h-[60vh] bg-background/80 backdrop-blur-xl rounded-xl shadow-2xl border border-border/50 transition-all duration-300 overflow-hidden ${
+        className={`fixed bottom-20 right-6 z-40 w-64 max-h-[60vh] bg-background rounded-xl shadow-lg border border-border transition-all duration-300 overflow-hidden ${
           isOpen
             ? 'opacity-100 translate-y-0 pointer-events-auto'
             : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
       >
         {/* 头部 */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-border/30">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-border">
           <span className="text-sm font-medium">大纲</span>
           <span className="text-xs text-muted-foreground">{toc.length} 节</span>
         </div>

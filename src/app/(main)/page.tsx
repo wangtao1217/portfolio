@@ -245,17 +245,17 @@ export default function Home() {
       {/* Main Content */}
       <main className="flex-1 relative z-10">
         {/* Terminal 区域 */}
-        <div className="relative">
+        <div className="relative py-12 sm:py-16">
           {/* 下边虚线 - 全屏宽度 */}
           <svg className="absolute bottom-0 left-[-50vw] right-[-50vw] h-px w-[200vw] pointer-events-none" preserveAspectRatio="none">
             <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="currentColor" strokeWidth="1" strokeDasharray="4,4" opacity="0.15" />
           </svg>
           <div className="grid grid-cols-[1fr_8fr_1fr]">
             <div />
-            <div className="p-5 flex justify-center">
+            <div className="px-5 flex justify-center">
               <div className="w-full max-w-[800px]">
                 {/* 标题 - 加大字号 */}
-                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-8 font-sans text-foreground">
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-12 font-sans text-foreground">
                   To make the world better.
                 </h1>
                 {/* 打字机内容 */}
@@ -315,7 +315,7 @@ export default function Home() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* 推荐卡片 1 - 加工中（打字机效果） */}
-                  <Link href="/content/amazon-sop-wip" className="group bg-card border border-border rounded-lg p-6 min-h-[180px] hover:border-foreground/30 hover:shadow-sm transition-all duration-300 cursor-pointer flex flex-col">
+                  <Link href="/content/amazon-sop-wip" className="group bg-card rounded-lg p-6 min-h-[180px] hover:bg-muted/50 transition-all duration-300 cursor-pointer flex flex-col">
                     <span className="text-xs text-muted-foreground/70 mb-3 block font-medium uppercase tracking-wider">运营</span>
                     <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground transition-colors">
                       亚马逊运营全流程SOP实践笔记
@@ -324,19 +324,19 @@ export default function Home() {
                     <p className="text-sm text-muted-foreground line-clamp-3 flex-1">从零到一搭建亚马逊运营体系，涵盖选品、Listing、广告、库存全链路SOP。</p>
                   </Link>
                   {/* 推荐卡片 2 */}
-                  <Link href="/content/cross-border-ecommerce-overview" className="group bg-card border border-border rounded-lg p-6 min-h-[180px] hover:border-foreground/30 hover:shadow-sm transition-all duration-300 cursor-pointer flex flex-col">
+                  <Link href="/content/cross-border-ecommerce-overview" className="group bg-card rounded-lg p-6 min-h-[180px] hover:bg-muted/50 transition-all duration-300 cursor-pointer flex flex-col">
                     <span className="text-xs text-muted-foreground/70 mb-3 block font-medium uppercase tracking-wider">商业</span>
                     <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground transition-colors">跨境电商全局纵观</h3>
                     <p className="text-sm text-muted-foreground line-clamp-3 flex-1">从商业价值创造本质出发，剖析跨境电商的三重本质与价值闭环。</p>
                   </Link>
                   {/* 推荐卡片 3 */}
-                  <Link href="/content/operation-system-overview" className="group bg-card border border-border rounded-lg p-6 min-h-[180px] hover:border-foreground/30 hover:shadow-sm transition-all duration-300 cursor-pointer flex flex-col">
+                  <Link href="/content/operation-system-overview" className="group bg-card rounded-lg p-6 min-h-[180px] hover:bg-muted/50 transition-all duration-300 cursor-pointer flex flex-col">
                     <span className="text-xs text-muted-foreground/70 mb-3 block font-medium uppercase tracking-wider">运营</span>
                     <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground transition-colors">运营纵览笔记</h3>
                     <p className="text-sm text-muted-foreground line-clamp-3 flex-1">从第一性原理拆解运营本质，构建流量、转化、交付、用户的四环节飞轮。</p>
                   </Link>
                   {/* 推荐卡片 4 - 待加工 */}
-                  <div className="group bg-card border border-border rounded-lg p-6 min-h-[180px] hover:border-foreground/30 hover:shadow-sm transition-all duration-300 cursor-pointer flex flex-col">
+                  <div className="group bg-card rounded-lg p-6 min-h-[180px] hover:bg-muted/50 transition-all duration-300 cursor-pointer flex flex-col">
                     <span className="text-xs text-muted-foreground/70 mb-3 block font-medium uppercase tracking-wider">随笔</span>
                     <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground transition-colors">
                       2026年度总结

@@ -109,20 +109,6 @@ export default function MainLayout({
             {/* 左侧：版权信息 */}
             <p className="text-xs text-background/50">© 2026 深澜</p>
             
-            {/* 中间：社交媒体图标 */}
-            <div className="flex items-center gap-3">
-              <SocialIcon href="https://xiaohongshu.com" icon={XiaohongshuIcon} label="小红书" />
-              <SocialIcon href="https://zhihu.com" icon={ZhihuIcon} label="知乎" />
-              <SocialIcon href="#" icon={WechatIcon} label="微信" />
-              <a
-                href="mailto:x96577213@163.com"
-                aria-label="邮箱"
-                className="w-8 h-8 rounded-full flex items-center justify-center border border-background/20 hover:border-background/50 transition-all duration-300 hover:bg-background/10"
-              >
-                <Mail className="h-4 w-4" />
-              </a>
-            </div>
-            
             {/* 右侧：邮箱地址 */}
             <a href="mailto:x96577213@163.com" className="text-xs text-background/50 hover:text-background/80 transition-colors">
               x96577213@163.com

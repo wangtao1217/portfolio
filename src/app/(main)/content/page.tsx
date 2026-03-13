@@ -1,35 +1,35 @@
+'use client';
+
+import { useState } from 'react';
 import { getAllPosts } from '@/lib/posts';
 import Link from 'next/link';
 
-// 文章卡片组件 - 使用 explore 卡片样式
+// 文章卡片组件
 function ArticleCard({ post }: { post: { slug: string; title: string; excerpt: string; date: string; tags: string[] } }) {
-  // 从 tags 中提取分类（第一个 type/ 或 topic/ 标签）
-  const category = post.tags.find(tag => tag.startsWith('type/') || tag.startsWith('topic/'))?.split('/')[1] || '笔记';
-
   return (
     <Link
       href={`/content/${post.slug}`}
-      className="group bg-card border border-transparent rounded-xl p-6 min-h-[180px] hover:border-foreground/10 transition-all duration-300 cursor-pointer flex flex-col break-inside-avoid mb-4"
+      className="group bg-card border border-border/40 rounded-lg p-4 sm:p-5 hover:border-foreground/20 transition-all duration-300 cursor-pointer flex flex-col h-full"
     >
-      {/* 顶部：时间和标签 */}
-      <div className="flex items-center gap-2 mb-3">
-        <span className="text-xs text-muted-foreground/60">{post.date}</span>
+      {/* 标题 - 增加上下边距 */}
+      <h3 className="font-semibold text-base sm:text-lg mb-4 mt-1 group-hover:text-foreground/80 transition-colors line-clamp-2">
+        {post.title}
+      </h3>
+
+      {/* 摘要 */}
+      <p className="text-sm text-muted-foreground line-clamp-2 flex-1 mb-4">
+        {post.excerpt}
+      </p>
+
+      {/* 底部：时间和标签 */}
+      <div className="flex items-center gap-2 text-xs text-muted-foreground/60 mt-auto pt-3 border-t border-border/30">
+        <span>{post.date}</span>
         {post.tags.slice(0, 2).map((tag) => (
-          <span key={tag} className="text-xs text-muted-foreground/50">
+          <span key={tag} className="text-muted-foreground/50">
             #{tag.split('/').pop()}
           </span>
         ))}
       </div>
-
-      {/* 标题 */}
-      <h3 className="font-semibold text-lg mb-3 group-hover:text-foreground/80 transition-colors line-clamp-2">
-        {post.title}
-      </h3>
-
-      {/* 摘要 - 一行半 */}
-      <p className="text-sm text-muted-foreground line-clamp-[1.5] flex-1">
-        {post.excerpt}
-      </p>
     </Link>
   );
 }
@@ -43,6 +43,7 @@ const filterTags = [
 ];
 
 export default function ContentPage() {
+  const [activeTag, setActiveTag] = useState('all');
   const posts = getAllPosts();
 
   return (
@@ -54,30 +55,37 @@ export default function ContentPage() {
           
           <div className="p-3 sm:p-5 max-w-[800px] mx-auto w-full">
             {/* 页面标题 */}
-            <div className="mb-4">
+            <div className="mb-6">
               <h1 className="text-3xl sm:text-4xl font-bold tracking-tight font-sans">
                 Content.
               </h1>
             </div>
 
-            {/* 筛选导航 - 极简风格 */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-4 scrollbar-hide">
+            {/* 筛选导航 - 支持左右滑动，带下划线动画 */}
+            <div className="flex items-center gap-1 overflow-x-auto pb-3 mb-6 scrollbar-hide -mx-3 px-3 sm:mx-0 sm:px-0">
               {filterTags.map((tag) => (
                 <button
                   key={tag.id}
-                  className={`px-2 py-[2px] text-sm transition-all whitespace-nowrap ${
-                    tag.id === 'all'
-                      ? 'border-b border-foreground'
+                  onClick={() => setActiveTag(tag.id)}
+                  className={`relative px-3 py-1.5 text-sm transition-colors duration-300 whitespace-nowrap ${
+                    activeTag === tag.id
+                      ? 'text-foreground'
                       : 'text-muted-foreground/60 hover:text-muted-foreground'
                   }`}
                 >
                   {tag.label}
+                  {/* 下划线动画 */}
+                  <span
+                    className={`absolute bottom-0 left-3 right-3 h-[1px] bg-foreground transition-all duration-300 ${
+                      activeTag === tag.id ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
+                    }`}
+                  />
                 </button>
               ))}
             </div>
             
-            {/* 文章列表 - 手机端一列，其他瀑布流 */}
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-2">
+            {/* 文章列表 - 手机端两列，统一间距 */}
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {posts.map((post) => (
                 <ArticleCard key={post.slug} post={post} />
               ))}
